@@ -1,0 +1,13 @@
+.Quiz {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Settings {
+    display: grid;
+    grid-template-columns: 500px;
+    grid-template-rows: 0.5fr repeat(2, 1fr) 0.75fr;
+    justify-content: center;
+    row-gap: 25px;
+}
