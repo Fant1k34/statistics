@@ -13,6 +13,11 @@ type Props = {
 };
 
 export const Statistics = ({ result, maximum, questions, resultsByQuestions, handleStartAgainClick, handleHomeButtonClick }: Props) => {
+    const difference = questions.length - resultsByQuestions.length;
+    for (let i = 0; i < difference; i++) {
+        resultsByQuestions.push(0);
+    }
+
     return (
         <div className={styles.Statistics}>
             <div className={styles.header}>
