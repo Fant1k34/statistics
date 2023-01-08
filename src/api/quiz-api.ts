@@ -12,5 +12,5 @@ export const findQuizByParameters = async (topic: QuizType, difficulty: Difficul
     //     users: [{ id: 1, name: "John Smith" }],
     // });
 
-    return (await axios.get(url)).data;
+    return await axios.get(url);
 }

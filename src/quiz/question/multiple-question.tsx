@@ -3,6 +3,8 @@ import { QuestionFromMiddle, QuestionToShow } from "../../types/question-type";
 import { Checkbox, FormControlLabel, FormGroup } from "@mui/material";
 import Button from "@mui/material/Button";
 import { calculateQuestionScoreMultiple } from "../../api/calculate-question-score-multiple";
+import { toTimeString } from "../../api/time";
+import styles from './index.module.css';
 
 type Props = {
     question: QuestionFromMiddle['question'];
@@ -42,10 +44,9 @@ export const MultipleQuestion = ({ question, answers, correctAnswers, callback, 
 
     useEffect(() => {
         setUserAnswers(initialStateUserAnswers);
+        if (timerId) clearTimeout(timerId);
         setTimer(secondsLeft);
     }, [answers, question]);
-
-    useEffect(() => timerId ? clearTimeout(timerId) : undefined, []);
 
     const handleChoiceClick = (answer: string) => {
         console.log(answer);
@@ -82,8 +83,10 @@ export const MultipleQuestion = ({ question, answers, correctAnswers, callback, 
                         })
                 }
             </FormGroup>
-            <Button onClick={() => handleSubmitButton()}>Submit answer</Button>
-            <Button variant="outlined" disabled>{timer}</Button>
+            <div className={styles.footer}>
+                <Button variant="contained" onClick={() => handleSubmitButton()}>Submit answer</Button>
+                <Button variant="outlined" disabled>{toTimeString(timer)}</Button>
+            </div>
         </>
     );
 }

@@ -3,16 +3,29 @@ import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
 import Button from "@mui/material/Button";
 import { QuestionFromMiddle } from "../../types/question-type";
 import { calculateQuestionScoreSingular } from "../../api/calculate-question-score-singular";
+import {toTimeString} from "../../api/time";
+import styles from "./index.module.css";
 
 type Props = {
     question: QuestionFromMiddle['question'];
     answers: QuestionFromMiddle['answers'];
     correctAnswers: QuestionFromMiddle['correct_answers'];
     callback: (p: number) => void;
+    secondsLeft: number;
 };
 
-export const SingularQuestion = ({ question, answers, correctAnswers, callback }: Props) => {
+export const SingularQuestion = ({ question, answers, correctAnswers, callback, secondsLeft }: Props) => {
     const [answer, setAnswer] = useState<string | null>(null);
+    const [timer, setTimer] = useState<number>(secondsLeft);
+    const [timerId, setTimerId] = useState<number | null>(null);
+
+    useEffect(() => {
+        const timerId = setTimeout(() => {
+            if (timer === 0) handleSubmitClick();
+            setTimer((time) => time === 0 ? 0 : time - 1);
+        }, 1000);
+        setTimerId(timerId);
+    }, [timer]);
 
     const handleChoiceClick = (option: string) => {
         setAnswer(option);
@@ -29,6 +42,8 @@ export const SingularQuestion = ({ question, answers, correctAnswers, callback }
 
     useEffect(() => {
         setAnswer(null);
+        if (timerId) clearTimeout(timerId);
+        setTimer(secondsLeft);
     }, [answers, question]);
 
     return (
@@ -43,7 +58,10 @@ export const SingularQuestion = ({ question, answers, correctAnswers, callback }
                 )
             }
             </RadioGroup>
-            <Button onClick={() => handleSubmitClick()}>Submit answer</Button>
+            <div className={styles.footer}>
+                <Button onClick={() => handleSubmitClick()}>Submit answer</Button>
+                <Button variant="outlined" disabled>{toTimeString(timer)}</Button>
+            </div>
         </>
     );
 }

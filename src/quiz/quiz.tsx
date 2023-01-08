@@ -18,6 +18,7 @@ export const Quiz = () => {
         topic: undefined,
         difficulty: undefined
     });
+    const [errorLoadingStatus, setErrorLoadingStatus] = useState(false);
     const [questions, setQuestions] = useState<object[]>([]);
     const [questionNumber, setQuestionNumber] = useState<number>(0);
     const [score, setScore] = useState<number[]>([]);
@@ -28,15 +29,25 @@ export const Quiz = () => {
             difficulty,
         });
         setQuizStage('LoadingQuiz');
-        findQuizByParameters(topic as QuizType, difficulty as Difficulty).then((data) => {
-            setQuestions(data);
-            setQuizStage('Quiz');
-            console.log(data);
-        });
+        findQuizByParameters(topic as QuizType, difficulty as Difficulty)
+            .then((response) => {
+                const data = response.data;
+                setQuestions(data);
+                setQuizStage('Quiz');
+                setErrorLoadingStatus(false);
+        })
+            .catch(error => {
+                console.log("I AM HERE");
+                setErrorLoadingStatus(true);
+                setQuizStage('Settings');
+            });
     };
 
     if (quizStage === 'Settings') {
-        return <Settings handleChoice={handleChoice}></Settings>;
+        return <Settings errorStatusChanger={() => setErrorLoadingStatus(false)}
+                         popup={errorLoadingStatus}
+                         handleChoice={handleChoice}/>;
+
     }
 
     if (quizStage === 'LoadingQuiz') {

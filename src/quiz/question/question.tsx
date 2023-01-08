@@ -20,7 +20,7 @@ export const Question = ({ question, answers, correctAnswers, callback, multiple
             <Typography variant="h5">
                 { question }
             </Typography>
-            { !multipleAnswers &&
+            { multipleAnswers &&
                 <MultipleQuestion
                     question={question}
                     answers={answers}
@@ -28,12 +28,14 @@ export const Question = ({ question, answers, correctAnswers, callback, multiple
                     callback={callback}
                     secondsLeft={11}
                 /> }
-            { multipleAnswers &&
+            { !multipleAnswers &&
                 <SingularQuestion
                     question={question}
                     answers={answers}
                     correctAnswers={correctAnswers}
-                    callback={callback}/> }
+                    callback={callback}
+                    secondsLeft={9}
+                /> }
         </div>
     );
 }

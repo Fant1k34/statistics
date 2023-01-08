@@ -5,3 +5,9 @@
     justify-content: center;
     row-gap: 25px;
 }
+
+.footer {
+    display: grid;
+    grid-template-columns: 5fr 1fr;
+    column-gap: 25px;
+}
