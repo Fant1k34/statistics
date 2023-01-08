@@ -2,12 +2,10 @@ export enum QuizType { 'Linux',
 'BASH',
 'PHP',
 'Docker',
-'HTML',
-'MySQL',
-'WordPress',
-'Laravel',
-'Kubernetes',
-'JavaScript',
+'SQL',
+'CMS',
+'Code',
+'Uncategorized',
 'DevOps'
 }
 

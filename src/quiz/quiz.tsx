@@ -6,6 +6,7 @@ import { Question } from "./question/question";
 import { QuestionFromMiddle } from "../types/question-type";
 import { Skeleton } from "@mui/material";
 import styles from './index.module.css';
+import {Statistics} from "../statistics/statistics";
 
 type QuizStage = 'Settings' | 'LoadingQuiz' | 'Quiz' | 'Statistics';
 
@@ -17,7 +18,7 @@ type Parameters = {
 export const Quiz = () => {
     const [quizStage, setQuizStage] = useState<QuizStage>('Settings');
     const [errorLoadingStatus, setErrorLoadingStatus] = useState(false);
-    const [questions, setQuestions] = useState<object[]>([]);
+    const [questions, setQuestions] = useState<QuestionFromMiddle[]>([]);
     const [questionNumber, setQuestionNumber] = useState<number>(0);
     const [score, setScore] = useState<number[]>([]);
 
@@ -31,7 +32,6 @@ export const Quiz = () => {
                 setErrorLoadingStatus(false);
         })
             .catch(error => {
-                console.log("I AM HERE");
                 setErrorLoadingStatus(true);
                 setQuizStage('Settings');
             });
@@ -41,7 +41,6 @@ export const Quiz = () => {
         return <Settings errorStatusChanger={() => setErrorLoadingStatus(false)}
                          popup={errorLoadingStatus}
                          handleChoice={handleChoice}/>;
-
     }
 
     if (quizStage === 'LoadingQuiz') {
@@ -61,10 +60,30 @@ export const Quiz = () => {
     }
 
     if (quizStage === 'Statistics') {
-        return <>Статистика: {score.reduce((a, b) => Math.round((a + b) * 100) / 100, 0)}</>;
+        // return <>Статистика: {}</>;
+        const handleStartAgainClick = () => {
+            setQuizStage('LoadingQuiz');
+            setScore([]);
+            setQuestionNumber(0);
+            setQuizStage('Quiz');
+        }
+        const handleHomeButtonClick = () => {
+            setQuizStage('Settings');
+            setScore([]);
+            setQuestionNumber(0);
+            setQuestions([]);
+            setErrorLoadingStatus(false);
+        }
+        return <Statistics result={score.reduce((a, b) => Math.round((a + b) * 100) / 100, 0)}
+                           maximum={questions.length}
+                           questions={questions.map(element => element.question)}
+                           resultsByQuestions={score}
+                           handleStartAgainClick={handleStartAgainClick}
+                           handleHomeButtonClick={handleHomeButtonClick}
+        />;
     }
 
-    const questionToShow = questions[questionNumber] as QuestionFromMiddle;
+    const questionToShow = questions[questionNumber];
 
     const handleScore = (result: number) => {
         setScore((prevState) => [...prevState, result]);
