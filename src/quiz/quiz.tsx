@@ -5,7 +5,7 @@ import { findQuizByParameters } from "../api/quiz-api";
 import { Question } from "./question/question";
 import { QuestionFromMiddle, QuestionToShow } from "../types/question-type";
 
-type QuizStage = 'Settings' | 'LoadingQuiz' | 'Quiz';
+type QuizStage = 'Settings' | 'LoadingQuiz' | 'Quiz' | 'Statistics';
 
 type Parameters = {
     topic: QuizType | undefined;
@@ -41,6 +41,10 @@ export const Quiz = () => {
 
     if (quizStage === 'LoadingQuiz') {
         return <></>;
+    }
+
+    if (questionNumber === questions.length) {
+        return <>Статистика: {score.reduce((a, b) => Math.round((a + b) * 100) / 100, 0)}</>;
     }
 
     const questionToShow = questions[questionNumber] as QuestionFromMiddle;

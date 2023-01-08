@@ -23,12 +23,12 @@ export type QuestionFromMiddle = {
         [p: string]: string;
     };
     /**
-     * answer_number: true/false
+     * answer_number: 'true/false'
      */
     correct_answers: {
-        [p: string]: boolean;
+        [p: string]: string;
     };
-    multiple_correct_answers: boolean;
+    multiple_correct_answers: string;
     question: string;
 };
 
