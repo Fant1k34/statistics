@@ -28,7 +28,7 @@ export const Settings = ({ handleChoice, popup, errorStatusChanger }: Props) => 
     const [difficulty, setDifficulty] = useState<Difficulty | undefined>(undefined);
     const [timerId, setTimerId] = useState<number | null>(null);
 
-    const handleButtonClick = (event: React.MouseEvent<HTMLElement>) => {
+    const handleButtonClick = () => {
         handleChoice(option, difficulty);
         errorStatusChanger();
     }
@@ -57,7 +57,7 @@ export const Settings = ({ handleChoice, popup, errorStatusChanger }: Props) => 
                     onChange={(event) => setOption(event.target.value as QuizType)}
                 >
                     {
-                        optionValues.map(categoryOption => <MenuItem value={categoryOption}>{categoryOption}</MenuItem>)
+                        optionValues.map(categoryOption => <MenuItem key={categoryOption} value={categoryOption}>{categoryOption}</MenuItem>)
                     }
                 </Select>
                 <FormHelperText>Required</FormHelperText>
@@ -70,12 +70,12 @@ export const Settings = ({ handleChoice, popup, errorStatusChanger }: Props) => 
                     onChange={(event) => setDifficulty(event.target.value as Difficulty)}
                 >
                     {
-                        difficultyValues.map(difficulty => <MenuItem value={difficulty}>{difficulty}</MenuItem>)
+                        difficultyValues.map(difficulty => <MenuItem key={difficulty} value={difficulty}>{difficulty}</MenuItem>)
                     }
                 </Select>
                 <FormHelperText>Required</FormHelperText>
             </FormControl>
-            <Button variant="contained" id='button-fetch-questions' onClick={(event) => handleButtonClick(event)}>
+            <Button variant="contained" id='button-fetch-questions' onClick={() => handleButtonClick()}>
                 Get quiz
             </Button>
             <Popper open={popup} transition>

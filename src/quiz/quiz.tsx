@@ -10,11 +10,6 @@ import {Statistics} from "../statistics/statistics";
 
 type QuizStage = 'Settings' | 'LoadingQuiz' | 'Quiz' | 'Statistics';
 
-type Parameters = {
-    topic: QuizType | undefined;
-    difficulty: Difficulty | undefined;
-};
-
 export const Quiz = () => {
     const [quizStage, setQuizStage] = useState<QuizStage>('Settings');
     const [errorLoadingStatus, setErrorLoadingStatus] = useState(false);
@@ -31,7 +26,7 @@ export const Quiz = () => {
                 setQuizStage('Quiz');
                 setErrorLoadingStatus(false);
         })
-            .catch(error => {
+            .catch(() => {
                 setErrorLoadingStatus(true);
                 setQuizStage('Settings');
             });
@@ -48,7 +43,7 @@ export const Quiz = () => {
             <div className={styles.Skeleton}>
                 <Skeleton variant="text" sx={{ fontSize: '3rem' }} />
                 { [1, 2, 3].map(element => (
-                    <div className={styles.AnswerRow}>
+                    <div key={element} className={styles.AnswerRow}>
                         <Skeleton variant="circular" width={25} height={25} className={styles.logo}/>
                         <Skeleton variant="text" sx={{ fontSize: '0.5rem' }} className={styles.Text}/>
                     </div>
