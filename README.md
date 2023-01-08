@@ -26,5 +26,5 @@ https://fant1k34.github.io/Quiz/
 ### How to run locally:
 1. git clone https://github.com/Fant1k34/Quiz.git
 2. yarn install
-3. yarn parcel .\build\index.html
+3. yarn start
 4. open http://localhost:1234
