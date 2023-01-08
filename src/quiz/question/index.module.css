@@ -8,6 +8,6 @@
 
 .footer {
     display: grid;
-    grid-template-columns: 5fr 1fr;
+    grid-template-columns: 3fr 2fr 1fr;
     column-gap: 25px;
 }

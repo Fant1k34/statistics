@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { Settings } from "./settings/settings";
 import { QuizType, Difficulty } from "../types/quiz-types";
 import { findQuizByParameters } from "../api/quiz-api";
 import { Question } from "./question/question";
-import { QuestionFromMiddle, QuestionToShow } from "../types/question-type";
+import { QuestionFromMiddle } from "../types/question-type";
 
 type QuizStage = 'Settings' | 'LoadingQuiz' | 'Quiz' | 'Statistics';
 
@@ -14,20 +14,12 @@ type Parameters = {
 
 export const Quiz = () => {
     const [quizStage, setQuizStage] = useState<QuizStage>('Settings');
-    const [param, setParam] = useState<Parameters>({
-        topic: undefined,
-        difficulty: undefined
-    });
     const [errorLoadingStatus, setErrorLoadingStatus] = useState(false);
     const [questions, setQuestions] = useState<object[]>([]);
     const [questionNumber, setQuestionNumber] = useState<number>(0);
     const [score, setScore] = useState<number[]>([]);
 
     const handleChoice = (topic: QuizType | undefined, difficulty: Difficulty | undefined) => {
-        setParam({
-            topic,
-            difficulty,
-        });
         setQuizStage('LoadingQuiz');
         findQuizByParameters(topic as QuizType, difficulty as Difficulty)
             .then((response) => {
@@ -54,7 +46,7 @@ export const Quiz = () => {
         return <></>;
     }
 
-    if (questionNumber === questions.length) {
+    if (quizStage === 'Statistics') {
         return <>Статистика: {score.reduce((a, b) => Math.round((a + b) * 100) / 100, 0)}</>;
     }
 
@@ -62,14 +54,22 @@ export const Quiz = () => {
 
     const handleScore = (result: number) => {
         setScore((prevState) => [...prevState, result]);
-        setQuestionNumber((prevState) => prevState + 1);
+        if (questionNumber + 1 === questions.length) {
+            setQuizStage('Statistics');
+        }
+        else {
+            setQuestionNumber((prevState) => {
+                return prevState + 1;
+            });
+        }
     };
-
-    console.log(score);
 
     return <Question question={questionToShow.question}
                      answers={questionToShow.answers}
                      correctAnswers={questionToShow.correct_answers}
                      multipleCorrectAnswers={questionToShow.multiple_correct_answers}
-                     callback={(result) => handleScore(result)}/>;
+                     callback={(result) => handleScore(result)}
+                     finishQuiz={() => setQuizStage('Statistics')}
+    />;
+
 }

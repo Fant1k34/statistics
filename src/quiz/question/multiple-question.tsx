@@ -12,9 +12,10 @@ type Props = {
     correctAnswers: QuestionFromMiddle['correct_answers'];
     callback: (p: number) => void;
     secondsLeft: number;
+    finishQuiz: () => void;
 };
 
-export const MultipleQuestion = ({ question, answers, correctAnswers, callback, secondsLeft }: Props) => {
+export const MultipleQuestion = ({ question, answers, correctAnswers, callback, secondsLeft, finishQuiz }: Props) => {
     const correctAnswersQuestion: QuestionToShow['correctAnswers'] = Object.entries(correctAnswers)
         .reduce((previousValue, currentValue) => {
             return {
@@ -85,6 +86,7 @@ export const MultipleQuestion = ({ question, answers, correctAnswers, callback, 
             </FormGroup>
             <div className={styles.footer}>
                 <Button variant="contained" onClick={() => handleSubmitButton()}>Submit answer</Button>
+                <Button onClick={() => finishQuiz()}>Finish Quiz</Button>
                 <Button variant="outlined" disabled>{toTimeString(timer)}</Button>
             </div>
         </>

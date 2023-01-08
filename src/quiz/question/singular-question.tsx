@@ -12,9 +12,10 @@ type Props = {
     correctAnswers: QuestionFromMiddle['correct_answers'];
     callback: (p: number) => void;
     secondsLeft: number;
+    finishQuiz: () => void;
 };
 
-export const SingularQuestion = ({ question, answers, correctAnswers, callback, secondsLeft }: Props) => {
+export const SingularQuestion = ({ question, answers, correctAnswers, callback, secondsLeft, finishQuiz }: Props) => {
     const [answer, setAnswer] = useState<string | null>(null);
     const [timer, setTimer] = useState<number>(secondsLeft);
     const [timerId, setTimerId] = useState<number | null>(null);
@@ -59,7 +60,8 @@ export const SingularQuestion = ({ question, answers, correctAnswers, callback, 
             }
             </RadioGroup>
             <div className={styles.footer}>
-                <Button onClick={() => handleSubmitClick()}>Submit answer</Button>
+                <Button variant="contained" onClick={() => handleSubmitClick()}>Submit answer</Button>
+                <Button onClick={() => finishQuiz()}>Finish Quiz</Button>
                 <Button variant="outlined" disabled>{toTimeString(timer)}</Button>
             </div>
         </>

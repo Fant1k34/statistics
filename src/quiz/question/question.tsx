@@ -11,9 +11,10 @@ type Props = {
     correctAnswers: QuestionFromMiddle['correct_answers'];
     multipleCorrectAnswers: QuestionFromMiddle['multiple_correct_answers'];
     callback: (p: number) => void;
+    finishQuiz: () => void;
 };
 
-export const Question = ({ question, answers, correctAnswers, callback, multipleCorrectAnswers}: Props) => {
+export const Question = ({ question, answers, correctAnswers, callback, multipleCorrectAnswers, finishQuiz }: Props) => {
     const multipleAnswers = (multipleCorrectAnswers === 'true');
     return (
         <div className={styles.Questions}>
@@ -27,6 +28,7 @@ export const Question = ({ question, answers, correctAnswers, callback, multiple
                     correctAnswers={correctAnswers}
                     callback={callback}
                     secondsLeft={11}
+                    finishQuiz={finishQuiz}
                 /> }
             { !multipleAnswers &&
                 <SingularQuestion
@@ -35,6 +37,7 @@ export const Question = ({ question, answers, correctAnswers, callback, multiple
                     correctAnswers={correctAnswers}
                     callback={callback}
                     secondsLeft={9}
+                    finishQuiz={finishQuiz}
                 /> }
         </div>
     );
