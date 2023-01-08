@@ -36,7 +36,7 @@ export const Question = ({ question, answers, correctAnswers, callback, multiple
                     answers={answers}
                     correctAnswers={correctAnswers}
                     callback={callback}
-                    secondsLeft={9}
+                    secondsLeft={11}
                     finishQuiz={finishQuiz}
                 /> }
         </div>

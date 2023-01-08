@@ -17,16 +17,21 @@ type Props = {
 
 export const SingularQuestion = ({ question, answers, correctAnswers, callback, secondsLeft, finishQuiz }: Props) => {
     const [answer, setAnswer] = useState<string | null>(null);
-    const [timer, setTimer] = useState<number>(secondsLeft);
+    const [time, setTime] = useState<number>(secondsLeft);
     const [timerId, setTimerId] = useState<number | null>(null);
+    const [timerColor, setTimerColor] = useState<'secondary' | 'error'>('secondary');
 
     useEffect(() => {
         const timerId = setTimeout(() => {
-            if (timer === 0) handleSubmitClick();
-            setTimer((time) => time === 0 ? 0 : time - 1);
+            if (time === 0) handleSubmitClick();
+            setTime((time) => time === 0 ? 0 : time - 1);
         }, 1000);
         setTimerId(timerId);
-    }, [timer]);
+
+        if (time <= 10) {
+            setTimerColor('error');
+        }
+    }, [time]);
 
     const handleChoiceClick = (option: string) => {
         setAnswer(option);
@@ -44,7 +49,8 @@ export const SingularQuestion = ({ question, answers, correctAnswers, callback, 
     useEffect(() => {
         setAnswer(null);
         if (timerId) clearTimeout(timerId);
-        setTimer(secondsLeft);
+        setTime(secondsLeft);
+        setTimerColor('secondary');
     }, [answers, question]);
 
     return (
@@ -62,7 +68,7 @@ export const SingularQuestion = ({ question, answers, correctAnswers, callback, 
             <div className={styles.footer}>
                 <Button variant="contained" onClick={() => handleSubmitClick()}>Submit answer</Button>
                 <Button onClick={() => finishQuiz()}>Finish Quiz</Button>
-                <Button variant="outlined" disabled>{toTimeString(timer)}</Button>
+                <Button variant="outlined" color={timerColor}>{toTimeString(time)}</Button>
             </div>
         </>
     );

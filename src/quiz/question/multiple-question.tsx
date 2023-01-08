@@ -32,21 +32,27 @@ export const MultipleQuestion = ({ question, answers, correctAnswers, callback, 
         } : previousValue;
     }, {}), [question, answers, correctAnswers, callback]);
     const [userAnswers, setUserAnswers] = useState<QuestionToShow['correctAnswers']>(initialStateUserAnswers);
-    const [timer, setTimer] = useState<number>(secondsLeft);
+    const [time, setTime] = useState<number>(secondsLeft);
     const [timerId, setTimerId] = useState<number | null>(null);
+    const [timerColor, setTimerColor] = useState<'secondary' | 'error'>('secondary')
 
     useEffect(() => {
         const timerId = setTimeout(() => {
-            if (timer === 0) handleSubmitButton();
-            setTimer((time) => time === 0 ? 0 : time - 1);
+            if (time === 0) handleSubmitButton();
+            setTime((time) => time === 0 ? 0 : time - 1);
         }, 1000);
         setTimerId(timerId);
-    }, [timer]);
+
+        if (time <= 10) {
+            setTimerColor('error');
+        }
+    }, [time]);
 
     useEffect(() => {
         setUserAnswers(initialStateUserAnswers);
         if (timerId) clearTimeout(timerId);
-        setTimer(secondsLeft);
+        setTime(secondsLeft);
+        setTimerColor('secondary');
     }, [answers, question]);
 
     const handleChoiceClick = (answer: string) => {
@@ -87,7 +93,7 @@ export const MultipleQuestion = ({ question, answers, correctAnswers, callback, 
             <div className={styles.footer}>
                 <Button variant="contained" onClick={() => handleSubmitButton()}>Submit answer</Button>
                 <Button onClick={() => finishQuiz()}>Finish Quiz</Button>
-                <Button variant="outlined" disabled>{toTimeString(timer)}</Button>
+                <Button variant="outlined" color={timerColor}>{toTimeString(time)}</Button>
             </div>
         </>
     );

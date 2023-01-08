@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState } from 'react';
 import { Settings } from "./settings/settings";
 import { QuizType, Difficulty } from "../types/quiz-types";
 import { findQuizByParameters } from "../api/quiz-api";
