@@ -49,7 +49,8 @@ export const Statistics = ({ result, maximum, questions, resultsByQuestions, han
                                         {id}
                                     </TableCell>
                                     <TableCell align="left">{row}</TableCell>
-                                    <TableCell align="right">{Math.round(resultsByQuestions[id] * 100) / 100}</TableCell>
+                                    <TableCell align="right">{ isNaN(Math.round(resultsByQuestions[id] * 100) / 100) ?
+                                        0 : Math.round(resultsByQuestions[id] * 100) / 100 }</TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
