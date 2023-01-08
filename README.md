@@ -3,6 +3,9 @@
 ### Description
 Quizzer is a React Application that let you complete different quizzes based on DevOps, Linux, Programming topics
 
+### Get quiz right now
+https://fant1k34.github.io/Quiz/
+
 ### Examples
 
 ![image](https://user-images.githubusercontent.com/45245696/211216390-ea0b3e94-ca7c-4220-b4e2-a1d06a869dc2.png)
