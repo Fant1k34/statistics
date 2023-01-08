@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import { QuestionFromMiddle, QuestionToShow } from "../../types/question-type";
 import { Checkbox, FormControlLabel, FormGroup } from "@mui/material";
 import Button from "@mui/material/Button";
@@ -9,9 +9,10 @@ type Props = {
     answers: QuestionFromMiddle['answers'];
     correctAnswers: QuestionFromMiddle['correct_answers'];
     callback: (p: number) => void;
+    secondsLeft: number;
 };
 
-export const MultipleQuestion = ({ question, answers, correctAnswers, callback }: Props) => {
+export const MultipleQuestion = ({ question, answers, correctAnswers, callback, secondsLeft }: Props) => {
     const correctAnswersQuestion: QuestionToShow['correctAnswers'] = Object.entries(correctAnswers)
         .reduce((previousValue, currentValue) => {
             return {
@@ -20,18 +21,31 @@ export const MultipleQuestion = ({ question, answers, correctAnswers, callback }
             }
         }, {});
 
-    const initialStateUserAnswers = Object.entries(answers).reduce((previousValue, currentValue) => {
+    const initialStateUserAnswers = useCallback(() => Object.entries(answers).reduce((previousValue, currentValue) => {
         // Get answer text as a key
         return currentValue[1] ? {
             ...previousValue,
             [currentValue[1]]: false,
         } : previousValue;
-    }, {});
+    }, {}), [question, answers, correctAnswers, callback]);
     const [userAnswers, setUserAnswers] = useState<QuestionToShow['correctAnswers']>(initialStateUserAnswers);
+    const [timer, setTimer] = useState<number>(secondsLeft);
+    const [timerId, setTimerId] = useState<number | null>(null);
+
+    useEffect(() => {
+        const timerId = setTimeout(() => {
+            if (timer === 0) handleSubmitButton();
+            setTimer((time) => time === 0 ? 0 : time - 1);
+        }, 1000);
+        setTimerId(timerId);
+    }, [timer]);
 
     useEffect(() => {
         setUserAnswers(initialStateUserAnswers);
+        setTimer(secondsLeft);
     }, [answers, question]);
+
+    useEffect(() => timerId ? clearTimeout(timerId) : undefined, []);
 
     const handleChoiceClick = (answer: string) => {
         console.log(answer);
@@ -69,6 +83,7 @@ export const MultipleQuestion = ({ question, answers, correctAnswers, callback }
                 }
             </FormGroup>
             <Button onClick={() => handleSubmitButton()}>Submit answer</Button>
+            <Button variant="outlined" disabled>{timer}</Button>
         </>
     );
 }

@@ -3,6 +3,7 @@ import { Typography } from "@mui/material";
 import { QuestionFromMiddle } from "../../types/question-type";
 import { MultipleQuestion } from "./multiple-question";
 import { SingularQuestion } from "./singular-question";
+import styles from './index.module.css';
 
 type Props = {
     question: QuestionFromMiddle['question'];
@@ -15,17 +16,19 @@ type Props = {
 export const Question = ({ question, answers, correctAnswers, callback, multipleCorrectAnswers}: Props) => {
     const multipleAnswers = (multipleCorrectAnswers === 'true');
     return (
-        <div>
+        <div className={styles.Questions}>
             <Typography variant="h5">
                 { question }
             </Typography>
-            { multipleAnswers &&
+            { !multipleAnswers &&
                 <MultipleQuestion
                     question={question}
                     answers={answers}
                     correctAnswers={correctAnswers}
-                    callback={callback}/> }
-            { !multipleAnswers &&
+                    callback={callback}
+                    secondsLeft={11}
+                /> }
+            { multipleAnswers &&
                 <SingularQuestion
                     question={question}
                     answers={answers}
