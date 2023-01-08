@@ -4,6 +4,8 @@ import { QuizType, Difficulty } from "../types/quiz-types";
 import { findQuizByParameters } from "../api/quiz-api";
 import { Question } from "./question/question";
 import { QuestionFromMiddle } from "../types/question-type";
+import { Skeleton } from "@mui/material";
+import styles from './index.module.css';
 
 type QuizStage = 'Settings' | 'LoadingQuiz' | 'Quiz' | 'Statistics';
 
@@ -43,7 +45,19 @@ export const Quiz = () => {
     }
 
     if (quizStage === 'LoadingQuiz') {
-        return <></>;
+        return (
+            <div className={styles.Skeleton}>
+                <Skeleton variant="text" sx={{ fontSize: '3rem' }} />
+                { [1, 2, 3].map(element => (
+                    <div className={styles.AnswerRow}>
+                        <Skeleton variant="circular" width={25} height={25} className={styles.logo}/>
+                        <Skeleton variant="text" sx={{ fontSize: '0.5rem' }} className={styles.Text}/>
+                    </div>
+                    )
+                )}
+                <Skeleton variant="rounded" width={210} height={60} />
+            </div>
+        );
     }
 
     if (quizStage === 'Statistics') {

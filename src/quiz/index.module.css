@@ -3,3 +3,26 @@
     justify-content: center;
     align-items: center;
 }
+
+.Skeleton {
+    display: grid;
+    grid-template-columns: 750px;
+    grid-template-rows: auto repeat(3, 1fr) 0.25fr;
+    justify-content: center;
+    row-gap: 10px;
+}
+
+.AnswerRow {
+    display: grid;
+    grid-template-columns: 25px auto;
+    column-gap: 25px;
+}
+
+.logo {
+    display: grid;
+    align-self: center;
+}
+
+.text {
+    display: grid;
+}
