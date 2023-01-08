@@ -9,6 +9,8 @@ Quizzer is a React Application that let you complete different quizzes based on 
 
 ![image](https://user-images.githubusercontent.com/45245696/211216402-c50472e8-4694-4789-a155-bb390aaf9602.png)
 
+![image](https://user-images.githubusercontent.com/45245696/211216934-a3d12959-ed51-4972-8112-7d2a544ec373.png)
+
 ![image](https://user-images.githubusercontent.com/45245696/211216416-f05863fe-9035-4bab-8562-4cff9e3206a3.png)
 
 ![image](https://user-images.githubusercontent.com/45245696/211216429-bbcd4e62-73d6-4f6c-87aa-9d29e3728ac4.png)
