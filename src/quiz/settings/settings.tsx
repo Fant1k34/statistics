@@ -47,7 +47,7 @@ export const Settings = ({ handleChoice, popup, errorStatusChanger }: Props) => 
     return (
         <div className={styles.Settings}>
             <Typography variant="h5" gutterBottom>
-                Выбери тему и сложность викторины
+                Choose topic and get quiz
             </Typography>
             <FormControl>
                 <InputLabel>Category</InputLabel>
@@ -76,7 +76,7 @@ export const Settings = ({ handleChoice, popup, errorStatusChanger }: Props) => 
                 <FormHelperText>Required</FormHelperText>
             </FormControl>
             <Button variant="contained" id='button-fetch-questions' onClick={(event) => handleButtonClick(event)}>
-                Составить викторину
+                Get quiz
             </Button>
             <Popper open={popup} transition>
                 {({ TransitionProps }) => (
