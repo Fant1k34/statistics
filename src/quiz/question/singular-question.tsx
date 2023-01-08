@@ -22,7 +22,7 @@ export const SingularQuestion = ({ question, answers, correctAnswers, callback, 
     const [timerColor, setTimerColor] = useState<'secondary' | 'error'>('secondary');
 
     useEffect(() => {
-        const timerId = setTimeout(() => {
+        const timerId = window.setTimeout(() => {
             if (time === 0) handleSubmitClick();
             setTime((time) => time === 0 ? 0 : time - 1);
         }, 1000);

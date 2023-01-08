@@ -35,7 +35,7 @@ export const Settings = ({ handleChoice, popup, errorStatusChanger }: Props) => 
 
     useEffect(() => {
         if (popup) {
-            const timer = setTimeout(() => {
+            const timer = window.setTimeout(() => {
                 errorStatusChanger();
             }, 5000);
             setTimerId(timer);
