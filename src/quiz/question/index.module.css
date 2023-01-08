@@ -1,7 +1,7 @@
 .Questions {
     display: grid;
     grid-template-columns: 750px;
-    grid-template-rows: auto 1fr 0.25fr;
+    grid-template-rows: auto 1fr auto;
     justify-content: center;
     row-gap: 25px;
 }
