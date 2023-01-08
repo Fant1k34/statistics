@@ -82,7 +82,7 @@ export const Settings = ({ handleChoice, popup, errorStatusChanger }: Props) => 
                 {({ TransitionProps }) => (
                     <Fade {...TransitionProps} timeout={350}>
                         <Paper>
-                            <Typography sx={{ p: 2 }}>Не удалось составить тест. Попробуйте другие параметры</Typography>
+                            <Typography sx={{ p: 2 }}>Failed test loading. Try again with another parameters</Typography>
                         </Paper>
                     </Fade>
                 )}
