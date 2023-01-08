@@ -49,7 +49,7 @@ export const Statistics = ({ result, maximum, questions, resultsByQuestions, han
                                         {id}
                                     </TableCell>
                                     <TableCell align="left">{row}</TableCell>
-                                    <TableCell align="right">{resultsByQuestions[id]}</TableCell>
+                                    <TableCell align="right">{Math.round(resultsByQuestions[id] * 100) / 100}</TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
