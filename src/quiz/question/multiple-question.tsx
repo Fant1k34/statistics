@@ -125,11 +125,12 @@ export const MultipleQuestion = ({
 				<Button
 					variant="contained"
 					onClick={() => handleSubmitButton()}
+					className={styles.submitFormButton}
 				>
 					Submit answer
 				</Button>
-				<Button onClick={() => finishQuiz()}>Finish Quiz</Button>
-				<Button variant="outlined" color={timerColor}>
+				<Button onClick={() => finishQuiz()} className={styles.finishQuizButton}>Finish Quiz</Button>
+				<Button variant="outlined" color={timerColor} className={styles.timer}>
 					{toTimeString(time)}
 				</Button>
 			</div>

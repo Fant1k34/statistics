@@ -66,9 +66,9 @@ export const SingularQuestion = ({ question, answers, correctAnswers, callback, 
             }
             </RadioGroup>
             <div className={styles.footer}>
-                <Button variant="contained" onClick={() => handleSubmitClick()}>Submit answer</Button>
-                <Button onClick={() => finishQuiz()}>Finish Quiz</Button>
-                <Button variant="outlined" color={timerColor}>{toTimeString(time)}</Button>
+                <Button variant="contained" onClick={() => handleSubmitClick()} className={styles.submitFormButton}>Submit answer</Button>
+                <Button onClick={() => finishQuiz()} className={styles.finishQuizButton}>Finish Quiz</Button>
+                <Button variant="outlined" color={timerColor} className={styles.timer}>{toTimeString(time)}</Button>
             </div>
         </>
     );

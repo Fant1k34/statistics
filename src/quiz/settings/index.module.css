@@ -11,3 +11,9 @@
     justify-content: center;
     row-gap: 25px;
 }
+
+@media screen and (max-width: 800px) {
+    body {
+        font-size:1.5em;
+    }
+}

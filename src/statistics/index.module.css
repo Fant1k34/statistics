@@ -18,12 +18,26 @@
     justify-self: left;
 }
 
-.tableResults {
-
-}
-
 .footer {
     display: grid;
     grid-template-columns: 1fr 1fr;
     column-gap: 25px;
+}
+
+.ResultBar {
+    display: flex;
+    position: relative;
+}
+
+.ResultText {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media screen and (max-width: 800px) {
+    .tableText {
+        font-size: 1.125rem;
+    }
 }

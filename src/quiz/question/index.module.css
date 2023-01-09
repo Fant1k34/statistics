@@ -8,6 +8,28 @@
 
 .footer {
     display: grid;
-    grid-template-columns: 3fr 2fr 1fr;
+    grid-template-columns: 2.5fr 2.5fr 1fr;
     column-gap: 25px;
+}
+
+@media screen and (max-width: 800px) {
+    .footer {
+        font-size: 1.25rem;
+        row-gap: 25px;
+        grid-template-areas:
+        "A A A A   A A A A   A A A A"
+        "B B B B   B B B B   C C C C";
+    }
+
+    .submitFormButton {
+        grid-area: A;
+    }
+
+    .finishQuizButton {
+        grid-area: B;
+    }
+
+    .timer {
+        grid-area: C;
+    }
 }
