@@ -38,6 +38,14 @@
 
 @media screen and (max-width: 800px) {
     .TableText {
-        font-size: 1.125rem;
+        font-size: 1.5rem;
+        margin-bottom: 12px;
+    }
+
+    .StatisticsButton {
+        font-size: 1.5rem;
+        display: block;
+        margin-top: 12px;
+        margin-bottom: 12px;
     }
 }

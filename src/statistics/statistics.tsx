@@ -115,13 +115,13 @@ export const Statistics = ({
 					onClick={() => handleStartAgainClick()}
 					variant="contained"
 				>
-					Start Again
+					{mobileTextScaler("Start Again", styles.StatisticsButton)}
 				</Button>
 				<Button
 					onClick={() => handleHomeButtonClick()}
 					variant="outlined"
 				>
-					HOME
+					{mobileTextScaler("HOME", styles.StatisticsButton)}
 				</Button>
 			</div>
 		</div>
