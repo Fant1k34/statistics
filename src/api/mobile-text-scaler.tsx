@@ -1,3 +1,5 @@
-import React from "react";
+import React from 'react'
 
-export const mobileTextScaler = (text: string | number, className: string) => <span className={className}>{text}</span>;
+export const mobileTextScaler = (text: string | number, className: string) => (
+    <span className={className}>{text}</span>
+)
