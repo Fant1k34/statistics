@@ -12,7 +12,8 @@
     "prebuild": "shx rm -rf dist/*",
     "build": "parcel build ./src/index.html --public-url ./",
     "push-gh-pages": "push-dir --dir=dist --branch=gh-pages --cleanup --verbose",
-    "deploy": "yarn prebuild && yarn build && yarn push-gh-pages"
+    "deploy": "yarn prebuild && yarn build && yarn push-gh-pages",
+    "fix": "yarn prettier --write ./src"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
