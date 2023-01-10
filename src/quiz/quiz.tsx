@@ -98,6 +98,7 @@ export const Quiz = () => {
                      multipleCorrectAnswers={questionToShow.multiple_correct_answers}
                      callback={(result) => handleScore(result)}
                      finishQuiz={() => setQuizStage('Statistics')}
+                     questionProcentCompleted={questionNumber / questions.length * 100}
     />;
 
 }

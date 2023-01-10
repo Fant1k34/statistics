@@ -1,5 +1,5 @@
 :root {
-    --circle-size: 100;
+    --device: desktop;
 }
 
 .Statistics {
@@ -42,7 +42,7 @@
 
 @media screen and (max-width: 800px) {
     :root {
-        --circle-size: 400;
+        --device: mobile;
     }
 
     .CircleText {

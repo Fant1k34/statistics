@@ -14,6 +14,7 @@ import {
 import styles from './index.module.css'
 import Button from '@mui/material/Button'
 import { mobileTextScaler } from '../api/mobile-text-scaler'
+import { isMobile } from '../api/device-getter'
 
 type Props = {
     result: number,
@@ -65,7 +66,7 @@ export const Statistics = ({
             >
                 <CircularProgress
                     variant="determinate"
-                    size={Number.parseInt(getComputedStyle(document.documentElement).getPropertyValue('--circle-size'))}
+                    size={isMobile() ? 400 : 100}
                     value={diagramPercent}
                 />
                 <Box

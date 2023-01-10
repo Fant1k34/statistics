@@ -1,10 +1,11 @@
 import React from 'react'
-import { Typography } from '@mui/material'
+import { Box, LinearProgress, Typography } from "@mui/material";
 import { QuestionFromMiddle } from '../../types/question-type'
 import { MultipleQuestion } from './multiple-question'
 import { SingularQuestion } from './singular-question'
 import styles from './index.module.css'
 import { mobileTextScaler } from '../../api/mobile-text-scaler'
+import { isMobile } from "../../api/device-getter";
 
 type Props = {
     question: QuestionFromMiddle['question'],
@@ -13,6 +14,7 @@ type Props = {
     multipleCorrectAnswers: QuestionFromMiddle['multiple_correct_answers'],
     callback: (p: number) => void,
     finishQuiz: () => void,
+    questionProcentCompleted: number,
 }
 
 export const Question = ({
@@ -22,6 +24,7 @@ export const Question = ({
     callback,
     multipleCorrectAnswers,
     finishQuiz,
+    questionProcentCompleted,
 }: Props) => {
     const multipleAnswers = multipleCorrectAnswers === 'true'
     const textWrapperToQuizAnswers = (text: string | number) =>
@@ -29,6 +32,15 @@ export const Question = ({
 
     return (
         <div className={styles.Questions}>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Box sx={{ width: '100%', mr: 1 }}>
+                    {isMobile() ? <LinearProgress variant="determinate" sx={{ height: '16px', mr: 1 }} value={Math.round(questionProcentCompleted)} /> :
+                      <LinearProgress variant="determinate" sx={{ mr: 1 }} value={Math.round(questionProcentCompleted)} />}
+                </Box>
+                <Box sx={{ minWidth: 35 }}>
+                    <Typography variant="body2" color="text.secondary">{`${Math.round(questionProcentCompleted)}%`}</Typography>
+                </Box>
+            </Box>
             <Typography variant="h5">
                 {textWrapperToQuizAnswers(question)}
             </Typography>
