@@ -79,7 +79,7 @@ export const Settings = ({ handleChoice, popup, errorStatusChanger }: Props) => 
                 <FormHelperText>{textWrapperToSettings("Required")}</FormHelperText>
             </FormControl>
             <Button variant="contained" id='button-fetch-questions' onClick={() => handleButtonClick()}>
-                {textWrapperToSettings("Get quiz")}
+                {mobileTextScaler("Get quiz", styles.ButtonGetQuizText)}
             </Button>
             <Popper open={popup} transition>
                 {({ TransitionProps }) => (
