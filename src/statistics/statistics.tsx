@@ -65,7 +65,7 @@ export const Statistics = ({
             >
                 <CircularProgress
                     variant="determinate"
-                    size={100}
+                    size={Number.parseInt(getComputedStyle(document.documentElement).getPropertyValue('--circle-size'))}
                     value={diagramPercent}
                 />
                 <Box
@@ -83,7 +83,7 @@ export const Statistics = ({
                     <Typography
                         variant="h6"
                         color="text.secondary"
-                    >{`${diagramPercent}%`}</Typography>
+                    >{mobileTextScaler(`${diagramPercent}%`, styles.CircleText)}</Typography>
                 </Box>
             </Box>
             <div>

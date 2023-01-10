@@ -1,3 +1,7 @@
+:root {
+    --circle-size: 100;
+}
+
 .Statistics {
     display: grid;
     grid-template-columns: 750px;
@@ -37,6 +41,14 @@
 }
 
 @media screen and (max-width: 800px) {
+    :root {
+        --circle-size: 400;
+    }
+
+    .CircleText {
+        font-size: 4rem;
+    }
+
     .TableText {
         font-size: 2rem;
         margin-bottom: 12px;
