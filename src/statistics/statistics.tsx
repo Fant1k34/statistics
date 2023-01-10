@@ -81,10 +81,12 @@ export const Statistics = ({
                         justifyContent: 'center',
                     }}
                 >
-                    <Typography
-                        variant="h6"
-                        color="text.secondary"
-                    >{mobileTextScaler(`${diagramPercent}%`, styles.CircleText)}</Typography>
+                    <Typography variant="h6" color="text.secondary">
+                        {mobileTextScaler(
+                            `${diagramPercent}%`,
+                            styles.CircleText
+                        )}
+                    </Typography>
                 </Box>
             </Box>
             <div>
