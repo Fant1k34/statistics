@@ -13,7 +13,11 @@
 }
 
 @media screen and (max-width: 800px) {
-    body {
-        font-size:1.5em;
+    .Settings {
+        grid-template-columns: 750px;
+    }
+
+    .SettingsText {
+        font-size: 1.5em;
     }
 }

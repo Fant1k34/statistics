@@ -12,6 +12,7 @@ import {
 } from '@mui/material'
 import styles from './index.module.css'
 import Button from '@mui/material/Button'
+import { mobileTextScaler } from "../api/mobile-text-scaler";
 
 type Props = {
 	result: number,
@@ -35,7 +36,7 @@ export const Statistics = ({
 		resultsByQuestions.push(0)
 	}
 
-	const textWrapperToTable = (text: string | number) => <span className={styles.tableText}>{text}</span>;
+	const textWrapperToTable = (text: string | number) => mobileTextScaler(text.toString(), styles.TableText);
 
 	const percentResult = Math.round(result * 100 / maximum);
 

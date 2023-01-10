@@ -6,30 +6,37 @@
     row-gap: 25px;
 }
 
-.footer {
+.Footer {
     display: grid;
     grid-template-columns: 2.5fr 2.5fr 1fr;
     column-gap: 25px;
 }
 
 @media screen and (max-width: 800px) {
-    .footer {
-        font-size: 1.25rem;
+    .Footer {
+        font-size: 2.25em;
         row-gap: 25px;
         grid-template-areas:
         "A A A A   A A A A   A A A A"
         "B B B B   B B B B   C C C C";
     }
 
-    .submitFormButton {
+    .HeaderText {
+        font-size: 1.5em;
+        display: block;
+        margin-top: 12px;
+        margin-bottom: 12px;
+    }
+
+    .SubmitFormButton {
         grid-area: A;
     }
 
-    .finishQuizButton {
+    .FinishQuizButton {
         grid-area: B;
     }
 
-    .timer {
+    .Timer {
         grid-area: C;
     }
 }

@@ -4,6 +4,7 @@ import { QuestionFromMiddle } from '../../types/question-type'
 import { MultipleQuestion } from './multiple-question'
 import { SingularQuestion } from './singular-question'
 import styles from './index.module.css'
+import { mobileTextScaler } from "../../api/mobile-text-scaler";
 
 type Props = {
 	question: QuestionFromMiddle['question'],
@@ -23,9 +24,11 @@ export const Question = ({
 	finishQuiz,
 }: Props) => {
 	const multipleAnswers = multipleCorrectAnswers === 'true'
+	const textWrapperToQuizAnswers = (text: string | number) => mobileTextScaler(text.toString(), styles.HeaderText);
+
 	return (
 		<div className={styles.Questions}>
-			<Typography variant="h5">{question}</Typography>
+			<Typography variant="h5">{textWrapperToQuizAnswers(question)}</Typography>
 			{multipleAnswers && (
 				<MultipleQuestion
 					question={question}

@@ -5,6 +5,7 @@ import Button from '@mui/material/Button'
 import { calculateQuestionScoreMultiple } from '../../api/calculate-question-score-multiple'
 import { toTimeString } from '../../api/time'
 import styles from './index.module.css'
+import { mobileTextScaler } from "../../api/mobile-text-scaler";
 
 type Props = {
 	question: QuestionFromMiddle['question'],
@@ -49,8 +50,8 @@ export const MultipleQuestion = ({
 	>(initialStateUserAnswers)
 	const [time, setTime] = useState<number>(secondsLeft)
 	const [timerId, setTimerId] = useState<number | null>(null)
-	const [timerColor, setTimerColor] = useState<'secondary' | 'error'>(
-		'secondary'
+	const [timerColor, setTimerColor] = useState<'primary' | 'error'>(
+		'primary'
 	)
 
 	useEffect(() => {
@@ -69,7 +70,7 @@ export const MultipleQuestion = ({
 		setUserAnswers(initialStateUserAnswers)
 		if (timerId) clearTimeout(timerId)
 		setTime(secondsLeft)
-		setTimerColor('secondary')
+		setTimerColor('primary')
 	}, [answers, question])
 
 	const handleChoiceClick = (answer: string) => {
@@ -103,11 +104,12 @@ export const MultipleQuestion = ({
 		callback(calculateQuestionScoreMultiple(correct, userAnswers))
 	}
 
+	const textWrapperToQuizAnswers = (text: string | number) => mobileTextScaler(text.toString(), styles.HeaderText);
+
 	return (
 		<>
 			<FormGroup>
 				{Object.entries(userAnswers).map((option) => {
-					console.warn(userAnswers)
 					return option ? (
 						<FormControlLabel
 							control={
@@ -116,22 +118,22 @@ export const MultipleQuestion = ({
 									checked={option[1]}
 								/>
 							}
-							label={option}
+							label={textWrapperToQuizAnswers(option[0])}
 						/>
 					) : undefined
 				})}
 			</FormGroup>
-			<div className={styles.footer}>
+			<div className={styles.Footer}>
 				<Button
 					variant="contained"
 					onClick={() => handleSubmitButton()}
-					className={styles.submitFormButton}
+					className={styles.SubmitFormButton}
 				>
-					Submit answer
+					{textWrapperToQuizAnswers("Submit answer")}
 				</Button>
-				<Button onClick={() => finishQuiz()} className={styles.finishQuizButton}>Finish Quiz</Button>
-				<Button variant="outlined" color={timerColor} className={styles.timer}>
-					{toTimeString(time)}
+				<Button onClick={() => finishQuiz()} className={styles.FinishQuizButton}>{textWrapperToQuizAnswers("Finish Quiz")}</Button>
+				<Button variant="outlined" color={timerColor} className={styles.Timer}>
+					{textWrapperToQuizAnswers(toTimeString(time))}
 				</Button>
 			</div>
 		</>

@@ -5,6 +5,7 @@ import { QuestionFromMiddle } from "../../types/question-type";
 import { calculateQuestionScoreSingular } from "../../api/calculate-question-score-singular";
 import {toTimeString} from "../../api/time";
 import styles from "./index.module.css";
+import { mobileTextScaler } from "../../api/mobile-text-scaler";
 
 type Props = {
     question: QuestionFromMiddle['question'];
@@ -19,7 +20,7 @@ export const SingularQuestion = ({ question, answers, correctAnswers, callback, 
     const [answer, setAnswer] = useState<string | null>(null);
     const [time, setTime] = useState<number>(secondsLeft);
     const [timerId, setTimerId] = useState<number | null>(null);
-    const [timerColor, setTimerColor] = useState<'secondary' | 'error'>('secondary');
+    const [timerColor, setTimerColor] = useState<'primary' | 'error'>('primary');
 
     useEffect(() => {
         const timerId = window.setTimeout(() => {
@@ -50,8 +51,10 @@ export const SingularQuestion = ({ question, answers, correctAnswers, callback, 
         setAnswer(null);
         if (timerId) clearTimeout(timerId);
         setTime(secondsLeft);
-        setTimerColor('secondary');
+        setTimerColor('primary');
     }, [answers, question]);
+
+    const textWrapperToQuizAnswers = (text: string | number) => mobileTextScaler(text.toString(), styles.HeaderText);
 
     return (
         <>
@@ -60,15 +63,15 @@ export const SingularQuestion = ({ question, answers, correctAnswers, callback, 
                 onChange={(event) => handleChoiceClick((event.target as HTMLInputElement).value)}>
             {
                 Object.entries(answers).map(option => {
-                        return option[1] ? <FormControlLabel value={option[1]} control={<Radio />} label={option[1]} /> : undefined
+                        return option[1] ? <FormControlLabel value={option[1]} control={<Radio />} label={textWrapperToQuizAnswers(option[1])} /> : undefined
                     }
                 )
             }
             </RadioGroup>
-            <div className={styles.footer}>
-                <Button variant="contained" onClick={() => handleSubmitClick()} className={styles.submitFormButton}>Submit answer</Button>
-                <Button onClick={() => finishQuiz()} className={styles.finishQuizButton}>Finish Quiz</Button>
-                <Button variant="outlined" color={timerColor} className={styles.timer}>{toTimeString(time)}</Button>
+            <div className={styles.Footer}>
+                <Button variant="contained" onClick={() => handleSubmitClick()} className={styles.SubmitFormButton}>{textWrapperToQuizAnswers("Submit answer")}</Button>
+                <Button onClick={() => finishQuiz()} className={styles.FinishQuizButton}>{textWrapperToQuizAnswers("Finish Quiz")}</Button>
+                <Button variant="outlined" color={timerColor} className={styles.Timer}>{textWrapperToQuizAnswers(toTimeString(time))}</Button>
             </div>
         </>
     );

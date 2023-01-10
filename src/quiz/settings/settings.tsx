@@ -13,6 +13,7 @@ import {
     Select,
     Typography
 } from "@mui/material";
+import { mobileTextScaler } from "../../api/mobile-text-scaler";
 
 type Props = {
     handleChoice: (topic: QuizType | undefined, difficulty: Difficulty | undefined) => void;
@@ -44,45 +45,47 @@ export const Settings = ({ handleChoice, popup, errorStatusChanger }: Props) => 
         }
     }, [popup]);
 
+    const textWrapperToSettings = (text: string | number) => mobileTextScaler(text.toString(), styles.SettingsText);
+
     return (
         <div className={styles.Settings}>
             <Typography variant="h5" gutterBottom>
-                Choose topic and get quiz
+                {textWrapperToSettings("Choose topic and get quiz")}
             </Typography>
             <FormControl>
-                <InputLabel>Category</InputLabel>
+                <InputLabel>{textWrapperToSettings("Category")}</InputLabel>
                 <Select
                     value={option}
                     label="Category"
                     onChange={(event) => setOption(event.target.value as QuizType)}
                 >
                     {
-                        optionValues.map(categoryOption => <MenuItem key={categoryOption} value={categoryOption}>{categoryOption}</MenuItem>)
+                        optionValues.map(categoryOption => <MenuItem key={categoryOption} value={categoryOption}>{textWrapperToSettings(categoryOption)}</MenuItem>)
                     }
                 </Select>
-                <FormHelperText>Required</FormHelperText>
+                <FormHelperText>{textWrapperToSettings("Required")}</FormHelperText>
             </FormControl>
             <FormControl>
-                <InputLabel>Difficulty</InputLabel>
+                <InputLabel>{textWrapperToSettings("Difficulty")}</InputLabel>
                 <Select
                     value={difficulty}
                     label="Difficulty"
                     onChange={(event) => setDifficulty(event.target.value as Difficulty)}
                 >
                     {
-                        difficultyValues.map(difficulty => <MenuItem key={difficulty} value={difficulty}>{difficulty}</MenuItem>)
+                        difficultyValues.map(difficulty => <MenuItem key={difficulty} value={difficulty}>{textWrapperToSettings(difficulty)}</MenuItem>)
                     }
                 </Select>
-                <FormHelperText>Required</FormHelperText>
+                <FormHelperText>{textWrapperToSettings("Required")}</FormHelperText>
             </FormControl>
             <Button variant="contained" id='button-fetch-questions' onClick={() => handleButtonClick()}>
-                Get quiz
+                {textWrapperToSettings("Get quiz")}
             </Button>
             <Popper open={popup} transition>
                 {({ TransitionProps }) => (
                     <Fade {...TransitionProps} timeout={350}>
                         <Paper>
-                            <Typography sx={{ p: 2 }}>Failed test loading. Try again with another parameters</Typography>
+                            <Typography sx={{ p: 2 }}>{textWrapperToSettings("Failed test loading. Try again with another parameters")}</Typography>
                         </Paper>
                     </Fade>
                 )}
