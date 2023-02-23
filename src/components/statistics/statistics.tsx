@@ -13,8 +13,8 @@ import {
 } from '@mui/material'
 import styles from './index.module.css'
 import Button from '@mui/material/Button'
-import { mobileTextScaler } from '../api/mobile-text-scaler'
-import { isMobile } from '../api/device-getter'
+import { mobileTextScaler } from '../../api/mobile-text-scaler'
+import { isMobile } from '../../api/device-getter'
 
 type Props = {
     result: number,

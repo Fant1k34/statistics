@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { QuestionFromMiddle, QuestionToShow } from '../../types/question-type'
+import { QuestionToShow } from '../../types/question-type'
 import { Checkbox, FormControlLabel, FormGroup } from '@mui/material'
 import Button from '@mui/material/Button'
 import { calculateQuestionScoreMultiple } from '../../api/calculate-question-score-multiple'
@@ -8,9 +8,9 @@ import styles from './index.module.css'
 import { mobileTextScaler } from '../../api/mobile-text-scaler'
 
 type Props = {
-    question: QuestionFromMiddle['question'],
-    answers: QuestionFromMiddle['answers'],
-    correctAnswers: QuestionFromMiddle['correct_answers'],
+    question: QuestionToShow['question'],
+    answers: QuestionToShow['answers'],
+    correctAnswers: QuestionToShow['correctAnswers'],
     callback: (p: number) => void,
     secondsLeft: number,
     finishQuiz: () => void,
@@ -28,7 +28,7 @@ export const MultipleQuestion = ({
         Object.entries(correctAnswers).reduce((previousValue, currentValue) => {
             return {
                 ...previousValue,
-                [currentValue[0]]: currentValue[1] === 'true',
+                [currentValue[0]]: currentValue[1],
             }
         }, {})
 

@@ -1,16 +1,16 @@
 import React, {useEffect, useState} from "react";
 import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
 import Button from "@mui/material/Button";
-import { QuestionFromMiddle } from "../../types/question-type";
+import { QuestionToShow } from '../../types/question-type'
 import { calculateQuestionScoreSingular } from "../../api/calculate-question-score-singular";
 import {toTimeString} from "../../api/time";
 import styles from "./index.module.css";
 import { mobileTextScaler } from "../../api/mobile-text-scaler";
 
 type Props = {
-    question: QuestionFromMiddle['question'];
-    answers: QuestionFromMiddle['answers'];
-    correctAnswers: QuestionFromMiddle['correct_answers'];
+    question: QuestionToShow['question'];
+    answers: QuestionToShow['answers'];
+    correctAnswers: QuestionToShow['correctAnswers'];
     callback: (p: number) => void;
     secondsLeft: number;
     finishQuiz: () => void;
@@ -40,7 +40,7 @@ export const SingularQuestion = ({ question, answers, correctAnswers, callback, 
 
     const handleSubmitClick = () => {
         const correctAnswer = Object.entries(correctAnswers).reduce((previousValue: string | null, currentValue) => {
-            if (!(currentValue[1] === 'true')) return previousValue;
+            if (!(currentValue[1])) return previousValue;
 
             return answers[currentValue[0].slice(0, currentValue[0].length - 8)];
         }, null);

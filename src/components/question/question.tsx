@@ -1,19 +1,21 @@
 import React from 'react'
 import { Box, LinearProgress, Typography } from '@mui/material'
-import { QuestionFromMiddle } from '../../types/question-type'
+import { QuestionToShow } from '../../types/question-type'
 import { MultipleQuestion } from './multiple-question'
 import { SingularQuestion } from './singular-question'
-import styles from './index.module.css'
 import { mobileTextScaler } from '../../api/mobile-text-scaler'
 import { isMobile } from '../../api/device-getter'
+import { setQuizStage } from '../../store/quiz-slice/quiz-slice'
+import { useDispatch } from 'react-redux'
+
+import styles from './index.module.css'
 
 type Props = {
-    question: QuestionFromMiddle['question'],
-    answers: QuestionFromMiddle['answers'],
-    correctAnswers: QuestionFromMiddle['correct_answers'],
-    multipleCorrectAnswers: QuestionFromMiddle['multiple_correct_answers'],
+    question: QuestionToShow['question'],
+    answers: QuestionToShow['answers'],
+    correctAnswers: QuestionToShow['correctAnswers'],
+    multipleCorrectAnswers: QuestionToShow['multipleCorrectAnswers'],
     callback: (p: number) => void,
-    finishQuiz: () => void,
     questionProcentCompleted: number,
 }
 
@@ -23,12 +25,13 @@ export const Question = ({
     correctAnswers,
     callback,
     multipleCorrectAnswers,
-    finishQuiz,
     questionProcentCompleted,
 }: Props) => {
-    const multipleAnswers = multipleCorrectAnswers === 'true'
+    const dispatch = useDispatch()
+    const multipleAnswers = multipleCorrectAnswers
     const textWrapperToQuizAnswers = (text: string | number) =>
         mobileTextScaler(text.toString(), styles.HeaderText)
+    const finishQuiz = () => dispatch(setQuizStage('Statistics'))
 
     return (
         <div className={styles.Questions}>

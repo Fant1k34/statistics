@@ -14,30 +14,39 @@ import {
     Typography
 } from "@mui/material";
 import { mobileTextScaler } from "../../api/mobile-text-scaler";
+import {
+    setQuizDifficulty,
+    setQuizStatusLoading,
+    setQuizTopic,
+} from '../../store/chose-quiz-slice/chose-quiz-slice'
+import { loadQuizesThunk } from '../../store/chose-quiz-slice/thunks/load-quizes-thunk'
+import { useDispatch, useSelector } from 'react-redux'
+import { getQuizLoadingStatus } from '../../store/chose-quiz-slice/selectors/quiz-load-selectors'
 
-type Props = {
-    handleChoice: (topic: QuizType | undefined, difficulty: Difficulty | undefined) => void;
-    popup: boolean;
-    errorStatusChanger: () => void;
-};
-
-export const Settings = ({ handleChoice, popup, errorStatusChanger }: Props) => {
+export const Settings = () => {
     const optionValues = Object.keys(QuizType).filter((v) => isNaN(Number(v)));
     const difficultyValues = Object.keys(Difficulty).filter((v) => isNaN(Number(v)));
 
     const [option, setOption] = useState<QuizType | undefined>(undefined);
     const [difficulty, setDifficulty] = useState<Difficulty | undefined>(undefined);
     const [timerId, setTimerId] = useState<number | null>(null);
+    const popup = useSelector(getQuizLoadingStatus) === 'error';
+
+    const dispatch = useDispatch();
+
 
     const handleButtonClick = () => {
-        handleChoice(option, difficulty);
-        errorStatusChanger();
+        dispatch(setQuizTopic(option));
+        dispatch(setQuizDifficulty(difficulty));
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        dispatch(loadQuizesThunk());
     }
 
     useEffect(() => {
         if (popup) {
             const timer = window.setTimeout(() => {
-                errorStatusChanger();
+                dispatch(setQuizStatusLoading());
             }, 5000);
             setTimerId(timer);
 
@@ -78,7 +87,7 @@ export const Settings = ({ handleChoice, popup, errorStatusChanger }: Props) => 
                 </Select>
                 <FormHelperText>{textWrapperToSettings("Required")}</FormHelperText>
             </FormControl>
-            <Button variant="contained" id='button-fetch-questions' onClick={() => handleButtonClick()}>
+            <Button variant="contained" id="button-fetch-questions" onClick={() => handleButtonClick()}>
                 {mobileTextScaler("Get quiz", styles.ButtonGetQuizText)}
             </Button>
             <Popper open={popup} transition>
