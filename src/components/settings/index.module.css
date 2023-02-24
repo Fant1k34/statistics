@@ -12,6 +12,11 @@
     row-gap: 25px;
 }
 
+.StartButton {
+    width: 100%;
+    height: 100%;
+}
+
 @media screen and (max-width: 800px) {
     .Settings {
         grid-template-columns: 750px;

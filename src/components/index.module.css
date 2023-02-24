@@ -1,0 +1,27 @@
+.innerContainer {
+    background-color: #FFFFFF;
+    width: 750px;
+    border-radius: 32px;
+    padding: 32px 64px;
+}
+
+.outerContainer {
+    display: flex;
+    justify-content: center;
+}
+
+body {
+    background-color: #FFFFFF;
+}
+
+@media screen and (max-width: 800px) {
+    .innerContainer {
+        background-color: #FFFFFF;
+        padding: 25px;
+        width: 750px;
+    }
+
+    body {
+        background-color: #FFFFFF;
+    }
+}

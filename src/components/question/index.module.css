@@ -6,6 +6,10 @@
     row-gap: 25px;
 }
 
+.Questions :nth-child(3) {
+    row-gap: 8px;
+}
+
 .Footer {
     display: grid;
     grid-template-columns: 2.5fr 2.5fr 1fr;

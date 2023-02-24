@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useRef, useState } from 'react'
 import Button from "@mui/material/Button";
 import styles from "./index.module.css";
 import { QuizType, Difficulty } from "../../types/quiz-types";
@@ -31,6 +31,7 @@ export const Settings = () => {
     const [difficulty, setDifficulty] = useState<Difficulty | undefined>(undefined);
     const [timerId, setTimerId] = useState<number | null>(null);
     const popup = useSelector(getQuizLoadingStatus) === 'error';
+    const anchor = useRef<HTMLInputElement>(null);
 
     const dispatch = useDispatch();
 
@@ -87,10 +88,12 @@ export const Settings = () => {
                 </Select>
                 <FormHelperText>{textWrapperToSettings("Required")}</FormHelperText>
             </FormControl>
-            <Button variant="contained" id="button-fetch-questions" onClick={() => handleButtonClick()}>
-                {mobileTextScaler("Get quiz", styles.ButtonGetQuizText)}
-            </Button>
-            <Popper open={popup} transition>
+            <div ref={anchor}>
+                <Button variant="contained" id="button-fetch-questions" onClick={() => handleButtonClick()} className={styles.StartButton}>
+                    {mobileTextScaler("Get quiz", styles.ButtonGetQuizText)}
+                </Button>
+            </div>
+            <Popper open={popup} anchorEl={anchor.current} transition>
                 {({ TransitionProps }) => (
                     <Fade {...TransitionProps} timeout={350}>
                         <Paper>
