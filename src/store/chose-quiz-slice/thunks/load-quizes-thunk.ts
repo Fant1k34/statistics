@@ -1,5 +1,5 @@
 import { findQuizByParameters } from '../../../api/quiz-api'
-import { Difficulty, QuizType } from '../../../types/quiz-types'
+import { Position, Grade } from '../../../types/quiz-types'
 import { setQuizQuestions, setQuizStage } from '../../quiz-slice/quiz-slice'
 import { setQuizStatusError, setQuizStatusSuccess } from '../chose-quiz-slice'
 
@@ -8,9 +8,9 @@ export const loadQuizesThunk = () => async (dispatch: any, getState: any) => {
 
     const { topic, difficulty } = getState().choseQuiz;
 
-    findQuizByParameters(topic as QuizType, difficulty as Difficulty)
+    findQuizByParameters(topic as Position, difficulty as Grade)
         .then((response) => {
-            const data = response.data;
+            const data = response.data.questions;
             dispatch(setQuizQuestions(data));
             dispatch(setQuizStage('Quiz'));
             dispatch(setQuizStatusSuccess());

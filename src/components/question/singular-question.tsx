@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
 import Button from "@mui/material/Button";
 import { QuestionToShow } from '../../types/question-type'
-import { calculateQuestionScoreSingular } from "../../api/calculate-question-score-singular";
 import {toTimeString} from "../../api/time";
 import styles from "./index.module.css";
 import { mobileTextScaler } from "../../api/mobile-text-scaler";
@@ -11,7 +10,7 @@ type Props = {
     question: QuestionToShow['question'];
     answers: QuestionToShow['answers'];
     correctAnswers: QuestionToShow['correctAnswers'];
-    callback: (p: number) => void;
+    callback: (p: number[]) => void;
     secondsLeft: number;
     finishQuiz: () => void;
 };
@@ -39,12 +38,7 @@ export const SingularQuestion = ({ question, answers, correctAnswers, callback, 
     };
 
     const handleSubmitClick = () => {
-        const correctAnswer = Object.entries(correctAnswers).reduce((previousValue: string | null, currentValue) => {
-            if (!(currentValue[1])) return previousValue;
-
-            return answers[currentValue[0].slice(0, currentValue[0].length - 8)];
-        }, null);
-        callback(calculateQuestionScoreSingular(correctAnswer, answer));
+        callback([Object.values(answers).findIndex((x) => x === answer)]);
     }
 
     useEffect(() => {
@@ -69,8 +63,14 @@ export const SingularQuestion = ({ question, answers, correctAnswers, callback, 
             }
             </RadioGroup>
             <div className={styles.Footer}>
-                <Button variant="contained" onClick={() => handleSubmitClick()} className={styles.SubmitFormButton}>{textWrapperToQuizAnswers("Submit answer")}</Button>
-                <Button onClick={() => finishQuiz()} className={styles.FinishQuizButton}>{textWrapperToQuizAnswers("Finish Quiz")}</Button>
+                <Button variant="contained"
+                        onClick={() => handleSubmitClick()}
+                        className={styles.SubmitFormButton}
+                        disabled={!answer}
+                >
+                    {textWrapperToQuizAnswers("Далее")}
+                </Button>
+                <Button onClick={() => finishQuiz()} className={styles.FinishQuizButton}>{textWrapperToQuizAnswers("Завершить опрос")}</Button>
                 <Button variant="outlined" color={timerColor} className={styles.Timer}>{textWrapperToQuizAnswers(toTimeString(time))}</Button>
             </div>
         </>

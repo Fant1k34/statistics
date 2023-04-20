@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Button from "@mui/material/Button";
 import styles from "./index.module.css";
-import { QuizType, Difficulty } from "../../types/quiz-types";
+import { Position, Grade } from "../../types/quiz-types";
 import {
     Fade,
     FormControl,
@@ -24,11 +24,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getQuizLoadingStatus } from '../../store/chose-quiz-slice/selectors/quiz-load-selectors'
 
 export const Settings = () => {
-    const optionValues = Object.keys(QuizType).filter((v) => isNaN(Number(v)));
-    const difficultyValues = Object.keys(Difficulty).filter((v) => isNaN(Number(v)));
+    const optionValues = Object.keys(Position).filter((v) => isNaN(Number(v)));
+    const difficultyValues = Object.keys(Grade).filter((v) => isNaN(Number(v)));
 
-    const [option, setOption] = useState<QuizType | undefined>(undefined);
-    const [difficulty, setDifficulty] = useState<Difficulty | undefined>(undefined);
+    const [option, setOption] = useState<Position | undefined>(undefined);
+    const [difficulty, setDifficulty] = useState<Grade | undefined>(undefined);
     const [timerId, setTimerId] = useState<number | null>(null);
     const popup = useSelector(getQuizLoadingStatus) === 'error';
     const anchor = useRef<HTMLInputElement>(null);
@@ -60,44 +60,44 @@ export const Settings = () => {
     return (
         <div className={styles.Settings}>
             <Typography variant="h5" gutterBottom>
-                {textWrapperToSettings("Choose topic and get quiz")}
+                {textWrapperToSettings("Выберите параметры для подсчета баллов и рекомендаций критериев")}
             </Typography>
             <FormControl>
-                <InputLabel>{textWrapperToSettings("Category")}</InputLabel>
+                <InputLabel>{textWrapperToSettings("Должность")}</InputLabel>
                 <Select
                     value={option}
-                    label="Category"
-                    onChange={(event) => setOption(event.target.value as QuizType)}
+                    label="Должность"
+                    onChange={(event) => setOption(event.target.value as Position)}
                 >
                     {
                         optionValues.map(categoryOption => <MenuItem key={categoryOption} value={categoryOption}>{textWrapperToSettings(categoryOption)}</MenuItem>)
                     }
                 </Select>
-                <FormHelperText>{textWrapperToSettings("Required")}</FormHelperText>
+                <FormHelperText>{textWrapperToSettings("Обязательно")}</FormHelperText>
             </FormControl>
             <FormControl>
-                <InputLabel>{textWrapperToSettings("Difficulty")}</InputLabel>
+                <InputLabel>{textWrapperToSettings("Категория")}</InputLabel>
                 <Select
                     value={difficulty}
-                    label="Difficulty"
-                    onChange={(event) => setDifficulty(event.target.value as Difficulty)}
+                    label="Категория"
+                    onChange={(event) => setDifficulty(event.target.value as Grade)}
                 >
                     {
                         difficultyValues.map(difficulty => <MenuItem key={difficulty} value={difficulty}>{textWrapperToSettings(difficulty)}</MenuItem>)
                     }
                 </Select>
-                <FormHelperText>{textWrapperToSettings("Required")}</FormHelperText>
+                <FormHelperText>{textWrapperToSettings("Обязательно")}</FormHelperText>
             </FormControl>
             <div ref={anchor}>
                 <Button variant="contained" id="button-fetch-questions" onClick={() => handleButtonClick()} className={styles.StartButton}>
-                    {mobileTextScaler("Get quiz", styles.ButtonGetQuizText)}
+                    {mobileTextScaler("Начать", styles.ButtonGetQuizText)}
                 </Button>
             </div>
             <Popper open={popup} anchorEl={anchor.current} transition>
                 {({ TransitionProps }) => (
                     <Fade {...TransitionProps} timeout={350}>
                         <Paper>
-                            <Typography sx={{ p: 2 }}>{textWrapperToSettings("Failed test loading. Try again with another parameters")}</Typography>
+                            <Typography sx={{ p: 2 }}>{textWrapperToSettings("Не получилось подготовить форму. Попробуйте снова с другими параметрами")}</Typography>
                         </Paper>
                     </Fade>
                 )}

@@ -20,6 +20,7 @@ import { setQuizStatusLoading } from '../../store/chose-quiz-slice/chose-quiz-sl
 export const Quiz = () => {
     const [questionNumber, setQuestionNumber] = useState<number>(0)
     const [score, setScore] = useState<number[]>([])
+    const [applicationData, setApplicationData] = useState([]);
 
     const dispatch = useDispatch()
     const quizStage = useSelector(quizStageSelector)
@@ -74,6 +75,8 @@ export const Quiz = () => {
             dispatch(setQuizStatusLoading())
         }
 
+        console.log(applicationData);
+
         return (
             <Statistics
                 result={score.reduce(
@@ -89,8 +92,8 @@ export const Quiz = () => {
         )
     }
 
-    const handleScore = (result: number) => {
-        setScore((prevState) => [...prevState, result])
+    const handleScore = (result: []) => {
+        setApplicationData((prevState) => prevState.concat(result));
         if (questionNumber + 1 === questions.length) {
             dispatch(setQuizStage('Statistics'))
         } else {
@@ -103,6 +106,8 @@ export const Quiz = () => {
     if (!question) {
         throw new Error('Something went wrong')
     }
+
+    console.warn(applicationData);
 
     return (
         <Question

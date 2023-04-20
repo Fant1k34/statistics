@@ -15,6 +15,7 @@ import styles from './index.module.css'
 import Button from '@mui/material/Button'
 import { mobileTextScaler } from '../../api/mobile-text-scaler'
 import { isMobile } from '../../api/device-getter'
+import { sklonatel } from '../../api/sklonatel'
 
 type Props = {
     result: number,
@@ -44,6 +45,8 @@ export const Statistics = ({
     const percentResult = Math.round((result * 100) / maximum)
 
     const [diagramPercent, setDiagramPercent] = useState(0)
+
+    const results = [0, 1, 2, 3, 4, 5, 6, 7];
 
     useEffect(() => {
         setTimeout(
@@ -99,13 +102,13 @@ export const Statistics = ({
                         <TableHead>
                             <TableRow>
                                 <TableCell align="center">
-                                    {textWrapperToTable('Number')}
+                                    {textWrapperToTable('Критерий')}
                                 </TableCell>
                                 <TableCell align="left">
-                                    {textWrapperToTable('Question')}
+                                    {textWrapperToTable('Формулировка')}
                                 </TableCell>
                                 <TableCell align="left">
-                                    {textWrapperToTable('Rating')}
+                                    {textWrapperToTable('Рекомендация')}
                                 </TableCell>
                             </TableRow>
                         </TableHead>
@@ -126,18 +129,7 @@ export const Statistics = ({
                                         {textWrapperToTable(row)}
                                     </TableCell>
                                     <TableCell align="center">
-                                        {textWrapperToTable(
-                                            isNaN(
-                                                Math.round(
-                                                    resultsByQuestions[id] * 100
-                                                ) / 100
-                                            )
-                                                ? 0
-                                                : Math.round(
-                                                      resultsByQuestions[id] *
-                                                          100
-                                                  ) / 100
-                                        )}
+                                        {`+ ${results[id]} ${sklonatel(results[id])}`}
                                     </TableCell>
                                 </TableRow>
                             ))}
@@ -150,13 +142,13 @@ export const Statistics = ({
                     onClick={() => handleStartAgainClick()}
                     variant="contained"
                 >
-                    {mobileTextScaler('Start Again', styles.StatisticsButton)}
+                    {mobileTextScaler('Начать заного', styles.StatisticsButton)}
                 </Button>
                 <Button
                     onClick={() => handleHomeButtonClick()}
                     variant="outlined"
                 >
-                    {mobileTextScaler('HOME', styles.StatisticsButton)}
+                    {mobileTextScaler('На главную', styles.StatisticsButton)}
                 </Button>
             </div>
         </div>

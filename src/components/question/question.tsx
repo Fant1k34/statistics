@@ -9,13 +9,14 @@ import { setQuizStage } from '../../store/quiz-slice/quiz-slice'
 import { useDispatch } from 'react-redux'
 
 import styles from './index.module.css'
+import { Percentage } from './percentage'
 
 type Props = {
     question: QuestionToShow['question'],
     answers: QuestionToShow['answers'],
     correctAnswers: QuestionToShow['correctAnswers'],
     multipleCorrectAnswers: QuestionToShow['multipleCorrectAnswers'],
-    callback: (p: number) => void,
+    callback: (p: number[]) => void,
     questionProcentCompleted: number,
 }
 
@@ -32,6 +33,9 @@ export const Question = ({
     const textWrapperToQuizAnswers = (text: string | number) =>
         mobileTextScaler(text.toString(), styles.HeaderText)
     const finishQuiz = () => dispatch(setQuizStage('Statistics'))
+
+    const condition = JSON.stringify(Object.values(answers)) === JSON.stringify(['0', '100'])
+
 
     return (
         <div className={styles.Questions}>
@@ -61,7 +65,18 @@ export const Question = ({
             <Typography variant="h5">
                 {textWrapperToQuizAnswers(question)}
             </Typography>
-            {multipleAnswers && (
+            {multipleAnswers && condition && (
+                <Percentage
+                    question={question}
+                    answers={answers}
+                    correctAnswers={correctAnswers}
+                    callback={callback}
+                    secondsLeft={80}
+                    finishQuiz={finishQuiz}
+                />
+            )
+            }
+            {multipleAnswers && !condition && (
                 <MultipleQuestion
                     question={question}
                     answers={answers}

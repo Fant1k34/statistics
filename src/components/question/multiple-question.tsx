@@ -11,7 +11,7 @@ type Props = {
     question: QuestionToShow['question'],
     answers: QuestionToShow['answers'],
     correctAnswers: QuestionToShow['correctAnswers'],
-    callback: (p: number) => void,
+    callback: (p: number[]) => void,
     secondsLeft: number,
     finishQuiz: () => void,
 }
@@ -82,24 +82,11 @@ export const MultipleQuestion = ({
     }
 
     const handleSubmitButton = () => {
-        // Change answer_number as a key to answer text as a key
-        const correct = Object.entries(correctAnswersQuestion).reduce(
-            (previousValue, currentValue) => {
-                // Get name of question by id that finds by cutting "_correct" part of currentValue tag
-                const tag =
-                    answers[
-                        currentValue[0].slice(0, currentValue[0].length - 8)
-                    ]
-                return tag
-                    ? {
-                          ...previousValue,
-                          [tag]: currentValue[1],
-                      }
-                    : previousValue
-            },
-            {}
-        )
-        callback(calculateQuestionScoreMultiple(correct, userAnswers))
+        if (Object.values(userAnswers).filter((el) => el).length === 0) {
+            return
+        }
+        // @ts-ignore
+        callback([Object.values(answers).map((el, index) => userAnswers[el] ? index : -1).filter((el) => el >= 0)]);
     }
 
     const textWrapperToQuizAnswers = (text: string | number) =>
@@ -127,14 +114,15 @@ export const MultipleQuestion = ({
                     variant="contained"
                     onClick={() => handleSubmitButton()}
                     className={styles.SubmitFormButton}
+                    disabled={(Object.values(userAnswers).filter((el) => el).length === 0)}
                 >
-                    {textWrapperToQuizAnswers('Submit answer')}
+                    {textWrapperToQuizAnswers('Далее')}
                 </Button>
                 <Button
                     onClick={() => finishQuiz()}
                     className={styles.FinishQuizButton}
                 >
-                    {textWrapperToQuizAnswers('Finish Quiz')}
+                    {textWrapperToQuizAnswers('Завершить опрос')}
                 </Button>
                 <Button
                     variant="outlined"
