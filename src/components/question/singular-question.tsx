@@ -41,13 +41,6 @@ export const SingularQuestion = ({ question, answers, correctAnswers, callback, 
         callback([Object.values(answers).findIndex((x) => x === answer)]);
     }
 
-    useEffect(() => {
-        setAnswer(null);
-        if (timerId) clearTimeout(timerId);
-        setTime(secondsLeft);
-        setTimerColor('primary');
-    }, [answers, question]);
-
     const textWrapperToQuizAnswers = (text: string | number) => mobileTextScaler(text.toString(), styles.HeaderText);
 
     return (
@@ -70,8 +63,6 @@ export const SingularQuestion = ({ question, answers, correctAnswers, callback, 
                 >
                     {textWrapperToQuizAnswers("Далее")}
                 </Button>
-                <Button onClick={() => finishQuiz()} className={styles.FinishQuizButton}>{textWrapperToQuizAnswers("Завершить опрос")}</Button>
-                <Button variant="outlined" color={timerColor} className={styles.Timer}>{textWrapperToQuizAnswers(toTimeString(time))}</Button>
             </div>
         </>
     );

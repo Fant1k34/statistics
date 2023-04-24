@@ -21,18 +21,6 @@ export const Percentage = ({ question, answers, correctAnswers, callback, second
     const [timerId, setTimerId] = useState<number | null>(null);
     const [timerColor, setTimerColor] = useState<'primary' | 'error'>('primary');
 
-    useEffect(() => {
-        const timerId = window.setTimeout(() => {
-            if (time === 0) handleSubmitClick();
-            setTime((time) => time === 0 ? 0 : time - 1);
-        }, 1000);
-        setTimerId(timerId);
-
-        if (time <= 10) {
-            setTimerColor('error');
-        }
-    }, [time]);
-
     const handleChoiceClick = (option: string) => {
         if (!isNaN(option)) {
             if (Number(option) > 100) {
@@ -69,8 +57,6 @@ export const Percentage = ({ question, answers, correctAnswers, callback, second
             </TextField>
             <div className={styles.Footer}>
                 <Button variant="contained" onClick={() => handleSubmitClick()} className={styles.SubmitFormButton}>{textWrapperToQuizAnswers("Далее")}</Button>
-                <Button onClick={() => finishQuiz()} className={styles.FinishQuizButton}>{textWrapperToQuizAnswers("Завершить опрос")}</Button>
-                <Button variant="outlined" color={timerColor} className={styles.Timer}>{textWrapperToQuizAnswers(toTimeString(time))}</Button>
             </div>
         </>
     );

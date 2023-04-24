@@ -16,11 +16,17 @@ import {
 } from '../../store/quiz-slice/selectors/quiz-selectors'
 import { questionFromMiddleToQuestionToShowMapper } from '../../api/question-from-middle-to-question-to-show-mapper'
 import { setQuizStatusLoading } from '../../store/chose-quiz-slice/chose-quiz-slice'
+import { getRecommendations } from '../../api/get-recommendations'
+import { setStatisticsData as setStatisticsDataSlice, statisticsReducer } from '../../store/statistics/slice'
+import { useNavigate } from 'react-router-dom'
 
 export const Quiz = () => {
     const [questionNumber, setQuestionNumber] = useState<number>(0)
     const [score, setScore] = useState<number[]>([])
     const [applicationData, setApplicationData] = useState([]);
+    const navigate = useNavigate();
+    // @ts-ignore
+    const statisticsData = useSelector((state) => state.statistics.data)
 
     const dispatch = useDispatch()
     const quizStage = useSelector(quizStageSelector)
@@ -60,6 +66,17 @@ export const Quiz = () => {
         )
     }
 
+    if (quizStage === 'LoadingStatistics') {
+        // TODO: Указать критерии для объединения
+        getRecommendations(questions.map(q => q.code), applicationData).then((respose) => {
+            dispatch(setQuizStage('Statistics'))
+            dispatch(setStatisticsDataSlice(respose.data));
+            console.log(respose.data);
+        })
+
+        dispatch(setQuizStage('LoadingQuiz'))
+    }
+
     if (quizStage === 'Statistics') {
         const handleStartAgainClick = () => {
             dispatch(setQuizStage('LoadingQuiz'))
@@ -67,40 +84,41 @@ export const Quiz = () => {
             setQuestionNumber(0)
             dispatch(setQuizStage('Quiz'))
         }
-        const handleHomeButtonClick = () => {
-            dispatch(setQuizStage('Settings'))
-            setScore([])
-            setQuestionNumber(0)
-            dispatch(setQuizQuestions([]))
-            dispatch(setQuizStatusLoading())
-        }
+
+        dispatch(setQuizStage('Settings'))
+        setScore([])
+        setQuestionNumber(0)
+        dispatch(setQuizQuestions([]))
+        dispatch(setQuizStatusLoading())
 
         console.log(applicationData);
+        console.warn(statisticsData);
 
-        return (
-            <Statistics
-                result={score.reduce(
-                    (a, b) => Math.round((a + b) * 100) / 100,
-                    0
-                )}
-                maximum={questions.length}
-                questions={questions.map((element) => element.question)}
-                resultsByQuestions={score}
-                handleStartAgainClick={handleStartAgainClick}
-                handleHomeButtonClick={handleHomeButtonClick}
-            />
-        )
+        const result = statisticsData[0];
+        const recommendation = statisticsData[1];
+        //@ts-ignore
+        const a = recommendation.reduce((previos, current) => ({...previos, [current[0]]: current[1]}), {})
+
+        console.log('INFO')
+        console.log(result);
+        console.log(recommendation);
+        console.log(a);
+        navigate(`/statistics/{"r":${result},"m":${220},"q":` + JSON.stringify(questions.map(q => q.code)) + `,"a":` + JSON.stringify(a) + '}')
     }
 
-    const handleScore = (result: []) => {
-        setApplicationData((prevState) => prevState.concat(result));
+    const handleResultCount = async () => {
         if (questionNumber + 1 === questions.length) {
-            dispatch(setQuizStage('Statistics'))
+            dispatch(setQuizStage('LoadingStatistics'))
         } else {
             setQuestionNumber((prevState) => {
                 return prevState + 1
             })
         }
+    }
+
+    const handleScore = (result: []) => {
+        setApplicationData((prevState) => prevState.concat(result));
+        handleResultCount();
     }
 
     if (!question) {

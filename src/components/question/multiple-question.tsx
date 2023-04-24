@@ -53,18 +53,6 @@ export const MultipleQuestion = ({
     const [timerColor, setTimerColor] = useState<'primary' | 'error'>('primary')
 
     useEffect(() => {
-        const timerId = window.setTimeout(() => {
-            if (time === 0) handleSubmitButton()
-            setTime((time) => (time === 0 ? 0 : time - 1))
-        }, 1000)
-        setTimerId(timerId)
-
-        if (time <= 10) {
-            setTimerColor('error')
-        }
-    }, [time])
-
-    useEffect(() => {
         setUserAnswers(initialStateUserAnswers)
         if (timerId) clearTimeout(timerId)
         setTime(secondsLeft)
@@ -117,19 +105,6 @@ export const MultipleQuestion = ({
                     disabled={(Object.values(userAnswers).filter((el) => el).length === 0)}
                 >
                     {textWrapperToQuizAnswers('Далее')}
-                </Button>
-                <Button
-                    onClick={() => finishQuiz()}
-                    className={styles.FinishQuizButton}
-                >
-                    {textWrapperToQuizAnswers('Завершить опрос')}
-                </Button>
-                <Button
-                    variant="outlined"
-                    color={timerColor}
-                    className={styles.Timer}
-                >
-                    {textWrapperToQuizAnswers(toTimeString(time))}
                 </Button>
             </div>
         </>

@@ -1,0 +1,63 @@
+:root {
+    --device: desktop;
+}
+
+.Statistics {
+    display: grid;
+    grid-template-columns: 750px;
+    grid-template-rows: auto 1fr auto;
+    justify-content: center;
+    row-gap: 25px;
+}
+
+.header {
+    display: grid;
+    grid-template-columns: auto auto auto 1fr;
+    padding-left: 2%;
+    column-gap: 10px;
+    align-items: center;
+}
+
+.MaximumScore {
+    justify-self: left;
+}
+
+.footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 25px;
+}
+
+.ResultBar {
+    display: flex;
+    position: relative;
+}
+
+.ResultText {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media screen and (max-width: 800px) {
+    :root {
+        --device: mobile;
+    }
+
+    .CircleText {
+        font-size: 4rem;
+    }
+
+    .TableText {
+        font-size: 2rem;
+        margin-bottom: 12px;
+    }
+
+    .StatisticsButton {
+        font-size: 2rem;
+        display: block;
+        margin-top: 12px;
+        margin-bottom: 12px;
+    }
+}

@@ -1,0 +1,1 @@
+export const context = 'http://localhost:1234/'

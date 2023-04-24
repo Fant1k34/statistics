@@ -12,5 +12,6 @@ export const questionFromMiddleToQuestionToShowMapper: (
         ...question,
         multipleCorrectAnswers: question.multiple_correct_answers === 'true',
         correctAnswers,
+        code: question.code,
     }
 }
