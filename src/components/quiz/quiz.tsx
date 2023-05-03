@@ -19,6 +19,7 @@ import { setQuizStatusLoading } from '../../store/chose-quiz-slice/chose-quiz-sl
 import { getRecommendations } from '../../api/get-recommendations'
 import { setStatisticsData as setStatisticsDataSlice, statisticsReducer } from '../../store/statistics/slice'
 import { useNavigate } from 'react-router-dom'
+import { getAllQuizInfo } from '../../store/chose-quiz-slice/selectors/quiz-load-selectors'
 
 export const Quiz = () => {
     const [questionNumber, setQuestionNumber] = useState<number>(0)
@@ -27,6 +28,7 @@ export const Quiz = () => {
     const navigate = useNavigate();
     // @ts-ignore
     const statisticsData = useSelector((state) => state.statistics.data)
+    const allQuizInfo = useSelector(getAllQuizInfo);
 
     const dispatch = useDispatch()
     const quizStage = useSelector(quizStageSelector)
@@ -100,10 +102,8 @@ export const Quiz = () => {
         const a = recommendation.reduce((previos, current) => ({...previos, [current[0]]: current[1]}), {})
 
         console.log('INFO')
-        console.log(result);
-        console.log(recommendation);
-        console.log(a);
-        navigate(`/statistics/{"r":${result},"m":${220},"q":` + JSON.stringify(questions.map(q => q.code)) + `,"a":` + JSON.stringify(a) + '}')
+        console.log(allQuizInfo);
+        navigate(`/statistics/{"r":${result},"m":${allQuizInfo.grade},"q":` + JSON.stringify(allQuizInfo.criteria) + `,"a":` + JSON.stringify(a) + '}')
     }
 
     const handleResultCount = async () => {

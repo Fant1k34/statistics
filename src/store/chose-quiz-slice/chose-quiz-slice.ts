@@ -4,6 +4,9 @@ const initialState = {
     topic: null,
     difficulty: null,
     status: 'loading',
+    grade: null,
+    name: 'Данных нет',
+    criteria: [],
 }
 
 const choseQuizSlice = createSlice({
@@ -25,6 +28,11 @@ const choseQuizSlice = createSlice({
         setQuizStatusError(state) {
             state.status = 'error'
         },
+        setQuizInfo(state, { payload }) {
+            state.grade = payload.grade;
+            state.name = payload.name;
+            state.criteria = payload.criteria;
+        }
     },
 })
 
@@ -35,4 +43,5 @@ export const {
     setQuizStatusError,
     setQuizStatusSuccess,
     setQuizStatusLoading,
+    setQuizInfo
 } = choseQuizSlice.actions

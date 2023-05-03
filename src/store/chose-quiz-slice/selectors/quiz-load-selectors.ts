@@ -6,3 +6,5 @@ export const difficultySelector = (store: any) =>
     choseSelector(store).difficulty
 
 export const getQuizLoadingStatus = (store: any) => choseSelector(store).status
+
+export const getAllQuizInfo = (store: any) => choseSelector(store)

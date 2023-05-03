@@ -105,9 +105,6 @@ export const Statistics = ({
                                     {textWrapperToTable('Критерий')}
                                 </TableCell>
                                 <TableCell align="left">
-                                    {textWrapperToTable('Формулировка')}
-                                </TableCell>
-                                <TableCell align="left">
                                     {textWrapperToTable('Рекомендация')}
                                 </TableCell>
                             </TableRow>
@@ -124,9 +121,6 @@ export const Statistics = ({
                                 >
                                     <TableCell align="center">
                                         {textWrapperToTable(id + 1)}
-                                    </TableCell>
-                                    <TableCell align="left">
-                                        {textWrapperToTable(row)}
                                     </TableCell>
                                     <TableCell align="center">
                                         {`+ ${results[id]} ${sklonatel(results[id])}`}
