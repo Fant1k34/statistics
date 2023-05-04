@@ -9,7 +9,7 @@ export const findQuizByParameters = async (
     code: Grade
 ) => {
 
-    const url = `http://localhost:5000/get-application-api/?position=${Position[position]}&code=${code}`
+    const url = `http://localhost:5000/get-application-api/?position=${Position[position]}&grade=${code}`
 
     return await axios.get(url)
 }

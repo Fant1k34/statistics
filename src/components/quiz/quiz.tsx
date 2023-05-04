@@ -70,7 +70,7 @@ export const Quiz = () => {
 
     if (quizStage === 'LoadingStatistics') {
         // TODO: Указать критерии для объединения
-        getRecommendations(questions.map(q => q.code), applicationData).then((respose) => {
+        getRecommendations(allQuizInfo.criteria, applicationData, allQuizInfo.grade).then((respose) => {
             dispatch(setQuizStage('Statistics'))
             dispatch(setStatisticsDataSlice(respose.data));
             console.log(respose.data);

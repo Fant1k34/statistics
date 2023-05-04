@@ -38,7 +38,7 @@ export const Settings = () => {
 
     const handleButtonClick = () => {
         dispatch(setQuizTopic(option));
-        dispatch(setQuizDifficulty(difficulty));
+        dispatch(setQuizDifficulty(difficulty ? Grade[difficulty] : 1));
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         dispatch(loadQuizesThunk());

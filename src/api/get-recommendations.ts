@@ -6,6 +6,7 @@ dotenv.config()
 export const getRecommendations = async (
     allCriteria: string[],
     allValues: any,
+    pointsGoal: number,
 ) => {
     const result = allCriteria.reduce((previousValue, currentValue, currentIndex) => (
     { ...previousValue,
@@ -14,7 +15,7 @@ export const getRecommendations = async (
     console.log('Объединенные критерии')
     console.log(result);
 
-    const url = `http://localhost:5000/?minimal_prirost=100`;
+    const url = `http://localhost:5000/?minimal_prirost=${pointsGoal}`;
 
     return await axios.post(url, result);
 }

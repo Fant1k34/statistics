@@ -18,14 +18,7 @@ import { isMobile } from '../api/device-getter'
 import { sklonatel } from '../api/sklonatel'
 import { useNavigate, useParams } from 'react-router-dom'
 import { context } from '../config'
-
-type Props = {
-    result: number,
-    maximum: number,
-    questions: string[],
-    handleStartAgainClick: () => void,
-    handleHomeButtonClick: () => void,
-}
+import Alert from '@mui/material/Alert';
 
 export const Statistics = () => {
     // {"r":70,"m":90,"q":["1.1","1.7","2.5"],"a":{"1.7":1}}
@@ -88,6 +81,7 @@ export const Statistics = () => {
                 </Box>
             </Box>
             <div>
+                <Alert severity="info" className={styles.alert}>Ваш результат анекты — {data.r}, при этом минимальный балл для получения выбранной квалификационной категории состовляет {data.m}</Alert>
                 <TableContainer component={Paper}>
                     <Table
                         sx={{ minWidth: 500 }}
@@ -98,9 +92,6 @@ export const Statistics = () => {
                             <TableRow>
                                 <TableCell align="center">
                                     {textWrapperToTable('Критерий')}
-                                </TableCell>
-                                <TableCell align="left">
-                                    {textWrapperToTable('Формулировка')}
                                 </TableCell>
                                 <TableCell align="left">
                                     {textWrapperToTable('Рекомендация')}
@@ -118,11 +109,7 @@ export const Statistics = () => {
                                     }}
                                 >
                                     <TableCell align="center">
-                                        {textWrapperToTable(criteria)}
-                                    </TableCell>
-                                    <TableCell align="left">
-                                        {textWrapperToTable("---")}
-                                    </TableCell>
+                                        {textWrapperToTable(criteria)}</TableCell>
                                     <TableCell align="left">
                                         {`+ ${data.a[criteria] ? data.a[criteria] : 0} ${sklonatel(data.a[criteria] ? data.a[criteria] : 0)}`}
                                     </TableCell>
@@ -145,13 +132,13 @@ export const Statistics = () => {
                     }}
                     variant="contained"
                 >
-                    {mobileTextScaler('Скопировать ссылку', styles.StatisticsButton)}
+                    {mobileTextScaler('Скопировать ссылку на результат', styles.StatisticsButton)}
                 </Button>
                 <Button
                     onClick={() => navigate('/')}
                     variant="outlined"
                 >
-                    {mobileTextScaler('На главную', styles.StatisticsButton)}
+                    {mobileTextScaler('Вернуться на главную', styles.StatisticsButton)}
                 </Button>
             </div>
         </div>
