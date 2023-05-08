@@ -6,7 +6,7 @@
   "homepage": "https://github.com/Fant1k34/Quiz",
   "scripts": {
     "lint": "yarn run eslint ./src/",
-    "start": "parcel ./src/index.html",
+    "start": "npx parcel ./src/index.html",
     "prebuild-dev": "shx rm -rf dist/*",
     "build-dev": "parcel build ./src/index.html --no-optimize --public-url ./",
     "prebuild": "shx rm -rf dist/*",

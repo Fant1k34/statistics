@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { Settings } from '../settings/settings'
 import { Question } from '../question/question'
 import { QuestionFromMiddle, QuestionToShow } from '../../types/question-type'
@@ -27,8 +27,39 @@ export const Quiz = () => {
     const [applicationData, setApplicationData] = useState([]);
     const navigate = useNavigate();
     // @ts-ignore
+    const previousQuestionCode = useRef<string>();
     const statisticsData = useSelector((state) => state.statistics.data)
     const allQuizInfo = useSelector(getAllQuizInfo);
+    const allCodes = [
+        "1.1",
+        "1.2",
+        "1.3",
+        "1.4",
+        "1.5",
+        "1.6",
+        "1.7",
+        "2.1",
+        "2.2",
+        "2.3",
+        "2.4",
+        "2.5",
+        "2.6",
+        "2.7",
+        "2.8",
+        "2.9",
+        "2.10",
+        "2.11",
+        "2.12",
+        "2.13",
+        "2.14",
+        "2.15",
+        "2.16",
+        "3.1",
+        "4.1",
+        "4.2",
+        "4.3",
+        "4.4"
+    ];
 
     const dispatch = useDispatch()
     const quizStage = useSelector(quizStageSelector)
@@ -116,7 +147,36 @@ export const Quiz = () => {
         }
     }
 
-    const handleScore = (result: []) => {
+    const handleScore = (question: any, result: []) => {
+        console.log('INFO');
+        console.log(question.code);
+        console.log(allCodes.indexOf(question.code));
+        console.log('-');
+        console.log(previousQuestionCode.current);
+        console.log(allCodes.indexOf(previousQuestionCode.current));
+        let toReduce;
+
+        if (!previousQuestionCode.current) {
+            toReduce = allCodes.slice(0, allCodes.indexOf(question.code));
+            console.error(toReduce);
+        }
+        else {
+            console.log(allCodes.indexOf(previousQuestionCode.current) + 1);
+            console.log(allCodes.indexOf(question.code))
+            toReduce = allCodes.slice(allCodes.indexOf(previousQuestionCode.current) + 1, allCodes.indexOf(question.code));
+            console.warn(toReduce);
+        }
+        console.log(toReduce);
+
+        const arrayToAdd = toReduce.reduce((previousValue: any, currentValue: string) => {
+            if (currentValue === question.code) {
+                return previousValue;
+            }
+            return [...previousValue, "x"]
+        }, []);
+        previousQuestionCode.current = question.code;
+        setApplicationData((prevState) => prevState.concat(arrayToAdd));
+
         setApplicationData((prevState) => prevState.concat(result));
         handleResultCount();
     }
@@ -126,14 +186,13 @@ export const Quiz = () => {
     }
 
     console.warn(applicationData);
-
     return (
         <Question
             question={question.question}
             answers={question.answers}
             correctAnswers={question.correctAnswers}
             multipleCorrectAnswers={question.multipleCorrectAnswers}
-            callback={(result) => handleScore(result)}
+            callback={(result) => handleScore(question, result)}
             questionProcentCompleted={(questionNumber / questions.length) * 100}
         />
     )
