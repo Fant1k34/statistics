@@ -1,1 +1,1 @@
-export const context = 'http://localhost:1234/'
+export const context = 'https://fant1k34.github.io/Quiz/'
