@@ -13,6 +13,7 @@ import {
 } from "react-router-dom";
 import styles from './index.module.css';
 import { Statistics } from '../statistics/statistics'
+import {contextRoot} from "../config";
 
 const QuizApplication = () => (
     <Provider store={store}>
@@ -24,11 +25,11 @@ const QuizApplication = () => (
 
 const router = createBrowserRouter([
     {
-        path: "/",
+        path: `${contextRoot}/`,
         element: <QuizApplication />,
     },
     {
-        path: "/statistics/:code",
+        path: `${contextRoot}/statistics/:code`,
         element: <Statistics />,
     },
 ]);
