@@ -16,7 +16,7 @@ export const getRecommendations = async (
     console.log(result);
 
     // const url = `http://localhost:5000/?minimal_prirost=${pointsGoal}`;
-    const url = `http://diplomadiploma.pythonanywhere.com/?minimal_prirost=${pointsGoal}`;
+    const url = `https://diplomadiploma.pythonanywhere.com/?minimal_prirost=${pointsGoal}`;
 
     return await axios.post(url, result);
 }

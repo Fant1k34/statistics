@@ -10,7 +10,7 @@ export const findQuizByParameters = async (
 ) => {
 
     // const url = `http://localhost:5000/get-application-api/?position=${Position[position]}&grade=${code}`
-    const url = `http://diplomadiploma.pythonanywhere.com/get-application-api/?position=${Position[position]}&grade=${code}`
+    const url = `https://diplomadiploma.pythonanywhere.com/get-application-api/?position=${Position[position]}&grade=${code}`
 
     return await axios.get(url)
 }
