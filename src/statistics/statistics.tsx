@@ -19,13 +19,22 @@ import { sklonatel } from '../api/sklonatel'
 import { useNavigate, useParams } from 'react-router-dom'
 import { context } from '../config'
 import Alert from '@mui/material/Alert';
+import { useSearchParams } from 'react-router-dom'
 
 export const Statistics = () => {
     // {"r":70,"m":90,"q":["1.1","1.7","2.5"],"a":{"1.7":1}}
-    const { code } = useParams();
+    // /?r=70&m=90&q=["1.1","1.7","2.5"]&a={"1.7":1}
+    const [searchParams, setSearchParams] = useSearchParams();
+    const r = Number(searchParams.get('r'));
+    const m = Number(searchParams.get('m'));
+    const q = JSON.parse(searchParams.get('q'));
+    const a = JSON.parse(searchParams.get('a'));
+
+    const code = { r, m, q, a };
+    console.log(code);
     const navigate = useNavigate();
     //@ts-ignore
-    const data = JSON.parse(code);
+    const data = code;
 
     const textWrapperToTable = (text: string | number) =>
         mobileTextScaler(text.toString(), styles.TableText)

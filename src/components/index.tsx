@@ -29,7 +29,7 @@ const router = createBrowserRouter([
         element: <QuizApplication />,
     },
     {
-        path: `${contextRoot}/statistics/:code`,
+        path: `${contextRoot}statistics/`,
         element: <Statistics />,
     },
 ]);
