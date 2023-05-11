@@ -32,7 +32,7 @@ export const Statistics = () => {
 
     const code = { r, m, q, a };
 
-    const urlParams = `?r=${r}&m=${m}&q=${q}&a=${a}`
+    const urlParams = `?r=${r}&m=${m}&q=${JSON.stringify(q)}&a=${JSON.stringify(a)}`;
     console.log(code);
     const navigate = useNavigate();
     //@ts-ignore
