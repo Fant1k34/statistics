@@ -31,6 +31,8 @@ export const Statistics = () => {
     const a = JSON.parse(searchParams.get('a'));
 
     const code = { r, m, q, a };
+
+    const urlParams = `?r=${r}&m=${m}&q=${q}&a=${a}`
     console.log(code);
     const navigate = useNavigate();
     //@ts-ignore
@@ -131,7 +133,7 @@ export const Statistics = () => {
             <div className={styles.footer}>
                 <Button
                     onClick={() => {
-                        navigator.clipboard.writeText(`${context}statistics/${code}`)
+                        navigator.clipboard.writeText(`${context}statistics/${urlParams}`)
                             .then(() => {
                                 console.log('Text copied to clipboard');
                             })
