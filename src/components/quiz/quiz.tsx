@@ -100,11 +100,9 @@ export const Quiz = () => {
     }
 
     if (quizStage === 'LoadingStatistics') {
-        // TODO: Указать критерии для объединения
         getRecommendations(allQuizInfo.criteria, applicationData, allQuizInfo.grade).then((respose) => {
             dispatch(setQuizStage('Statistics'))
             dispatch(setStatisticsDataSlice(respose.data));
-            console.log(respose.data);
         })
 
         dispatch(setQuizStage('LoadingQuiz'))
@@ -124,16 +122,11 @@ export const Quiz = () => {
         dispatch(setQuizQuestions([]))
         dispatch(setQuizStatusLoading())
 
-        console.log(applicationData);
-        console.warn(statisticsData);
-
         const result = statisticsData[0];
         const recommendation = statisticsData[1];
         //@ts-ignore
         const a = recommendation.reduce((previos, current) => ({...previos, [current[0]]: current[1]}), {})
 
-        console.log('INFO')
-        console.log(allQuizInfo);
         navigate(`/statistics/{"r":${result},"m":${allQuizInfo.grade},"q":` + JSON.stringify(allQuizInfo.criteria) + `,"a":` + JSON.stringify(a) + '}')
     }
 
@@ -148,25 +141,13 @@ export const Quiz = () => {
     }
 
     const handleScore = (question: any, result: []) => {
-        console.log('INFO');
-        console.log(question.code);
-        console.log(allCodes.indexOf(question.code));
-        console.log('-');
-        console.log(previousQuestionCode.current);
-        console.log(allCodes.indexOf(previousQuestionCode.current));
         let toReduce;
 
         if (!previousQuestionCode.current) {
-            toReduce = allCodes.slice(0, allCodes.indexOf(question.code));
-            console.error(toReduce);
         }
         else {
-            console.log(allCodes.indexOf(previousQuestionCode.current) + 1);
-            console.log(allCodes.indexOf(question.code))
             toReduce = allCodes.slice(allCodes.indexOf(previousQuestionCode.current) + 1, allCodes.indexOf(question.code));
-            console.warn(toReduce);
         }
-        console.log(toReduce);
 
         const arrayToAdd = toReduce.reduce((previousValue: any, currentValue: string) => {
             if (currentValue === question.code) {
@@ -185,7 +166,6 @@ export const Quiz = () => {
         throw new Error('Something went wrong')
     }
 
-    console.warn(applicationData);
     return (
         <Question
             question={question.question}
