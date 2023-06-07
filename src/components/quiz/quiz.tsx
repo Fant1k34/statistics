@@ -144,6 +144,7 @@ export const Quiz = () => {
         let toReduce;
 
         if (!previousQuestionCode.current) {
+            toReduce = allCodes.slice(0, allCodes.indexOf(question.code));
         }
         else {
             toReduce = allCodes.slice(allCodes.indexOf(previousQuestionCode.current) + 1, allCodes.indexOf(question.code));
