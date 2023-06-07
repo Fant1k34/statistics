@@ -14,7 +14,6 @@ import {
 import styles from './index.module.css';
 import { Statistics } from '../statistics/statistics'
 import { contextRoot } from "../config";
-import { Alert } from "@mui/material";
 
 const QuizApplication = () => (
     <Provider store={store}>
@@ -28,7 +27,6 @@ const router = createBrowserRouter([
     {
         path: `${contextRoot}/`,
         element: <QuizApplication />,
-        errorElement: <Alert severity="warning">Обновите страницу для отображения результата</Alert>,
     },
     {
         path: `${contextRoot}statistics/`,
