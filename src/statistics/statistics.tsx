@@ -30,6 +30,7 @@ export const Statistics = () => {
     const q = JSON.parse(searchParams.get('q'));
     const a = JSON.parse(searchParams.get('a'));
 
+
     const code = { r, m, q, a };
 
     const urlParams = `?r=${r}&m=${m}&q=${JSON.stringify(q)}&a=${JSON.stringify(a)}`;
