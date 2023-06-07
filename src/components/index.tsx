@@ -26,7 +26,7 @@ const QuizApplication = () => (
 const router = createBrowserRouter([
     {
         path: `${contextRoot}/`,
-        element: <QuizApplication />,
+        element: <Statistics />,
     },
     {
         path: `${contextRoot}Quiz/`,
