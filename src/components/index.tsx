@@ -7,13 +7,7 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { Provider } from 'react-redux';
 import { store } from '../store';
-import {
-    createBrowserRouter,
-    RouterProvider,
-} from "react-router-dom";
 import styles from './index.module.css';
-import { Statistics } from '../statistics/statistics'
-import { contextRoot } from "../config";
 
 const QuizApplication = () => (
     <Provider store={store}>
@@ -23,22 +17,12 @@ const QuizApplication = () => (
     </Provider>
 );
 
-const router = createBrowserRouter([
-    {
-        path: `${contextRoot}/`,
-        element: <QuizApplication />,
-    },
-    {
-        path: `${contextRoot}statistics/`,
-        element: <Statistics />,
-    },
-]);
 
 const container = document.getElementById("app");
 const root = createRoot(container as HTMLElement);
 
 root.render(
     <div className={styles.outerContainer}>
-        <RouterProvider router={router} />
+        <QuizApplication />
     </div>
 );
