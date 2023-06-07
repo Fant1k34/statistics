@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, LinearProgress, Typography } from '@mui/material'
+import { AlertTitle, Box, LinearProgress, Typography, Alert } from '@mui/material'
 import { QuestionToShow } from '../../types/question-type'
 import { MultipleQuestion } from './multiple-question'
 import { SingularQuestion } from './singular-question'
@@ -18,6 +18,8 @@ type Props = {
     multipleCorrectAnswers: QuestionToShow['multipleCorrectAnswers'],
     callback: (p: number[]) => void,
     questionProcentCompleted: number,
+    additional: string,
+    documents: string,
 }
 
 export const Question = ({
@@ -27,6 +29,8 @@ export const Question = ({
     callback,
     multipleCorrectAnswers,
     questionProcentCompleted,
+    additional,
+    documents,
 }: Props) => {
     const dispatch = useDispatch()
     const multipleAnswers = multipleCorrectAnswers
@@ -65,6 +69,10 @@ export const Question = ({
             <Typography variant="h5">
                 {textWrapperToQuizAnswers(question)}
             </Typography>
+            <Alert severity="info">
+                <AlertTitle>Документы</AlertTitle>
+                { additional }
+            </Alert>
             {multipleAnswers && condition && (
                 <Percentage
                     question={question}
@@ -73,6 +81,7 @@ export const Question = ({
                     callback={callback}
                     secondsLeft={80}
                     finishQuiz={finishQuiz}
+                    documents={documents}
                 />
             )
             }
@@ -84,6 +93,7 @@ export const Question = ({
                     callback={callback}
                     secondsLeft={80}
                     finishQuiz={finishQuiz}
+                    documents={documents}
                 />
             )}
             {!multipleAnswers && (
@@ -94,6 +104,7 @@ export const Question = ({
                     callback={callback}
                     secondsLeft={80}
                     finishQuiz={finishQuiz}
+                    documents={documents}
                 />
             )}
         </div>

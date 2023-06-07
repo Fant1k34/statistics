@@ -194,6 +194,8 @@ export const Quiz = () => {
             multipleCorrectAnswers={question.multipleCorrectAnswers}
             callback={(result) => handleScore(question, result)}
             questionProcentCompleted={(questionNumber / questions.length) * 100}
+            additional={question.documents}
+            documents={question.additional}
         />
     )
 }

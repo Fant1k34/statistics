@@ -14,6 +14,8 @@ export type QuestionToShow = {
     multipleCorrectAnswers: boolean,
     question: string,
     code: string,
+    additional: string,
+    documents: string,
 }
 
 export type QuestionFromMiddle = {
@@ -32,6 +34,8 @@ export type QuestionFromMiddle = {
     multiple_correct_answers: string,
     question: string,
     code: string,
+    additional: string,
+    documents: string,
 }
 
 export type Answer = {

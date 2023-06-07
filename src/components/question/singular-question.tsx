@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
+import {Alert, FormControlLabel, Radio, RadioGroup} from "@mui/material";
 import Button from "@mui/material/Button";
 import { QuestionToShow } from '../../types/question-type'
 import {toTimeString} from "../../api/time";
@@ -13,9 +13,10 @@ type Props = {
     callback: (p: number[]) => void;
     secondsLeft: number;
     finishQuiz: () => void;
+    documents: string;
 };
 
-export const SingularQuestion = ({ question, answers, correctAnswers, callback, secondsLeft, finishQuiz }: Props) => {
+export const SingularQuestion = ({ question, answers, correctAnswers, callback, secondsLeft, finishQuiz, documents }: Props) => {
     const [answer, setAnswer] = useState<string | null>(null);
     const [time, setTime] = useState<number>(secondsLeft);
     const [timerId, setTimerId] = useState<number | null>(null);
@@ -55,6 +56,9 @@ export const SingularQuestion = ({ question, answers, correctAnswers, callback, 
                 )
             }
             </RadioGroup>
+            <Alert variant="outlined" severity="info">
+                { documents }
+            </Alert>
             <div className={styles.Footer}>
                 <Button variant="contained"
                         onClick={() => handleSubmitClick()}

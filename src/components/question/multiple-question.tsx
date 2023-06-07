@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { QuestionToShow } from '../../types/question-type'
-import { Checkbox, FormControlLabel, FormGroup } from '@mui/material'
+import {Alert, Checkbox, FormControlLabel, FormGroup} from '@mui/material'
 import Button from '@mui/material/Button'
 import { calculateQuestionScoreMultiple } from '../../api/calculate-question-score-multiple'
 import { toTimeString } from '../../api/time'
@@ -14,6 +14,7 @@ type Props = {
     callback: (p: number[]) => void,
     secondsLeft: number,
     finishQuiz: () => void,
+    documents: string;
 }
 
 export const MultipleQuestion = ({
@@ -23,6 +24,7 @@ export const MultipleQuestion = ({
     callback,
     secondsLeft,
     finishQuiz,
+    documents,
 }: Props) => {
     const correctAnswersQuestion: QuestionToShow['correctAnswers'] =
         Object.entries(correctAnswers).reduce((previousValue, currentValue) => {
@@ -97,6 +99,9 @@ export const MultipleQuestion = ({
                     ) : undefined
                 })}
             </FormGroup>
+            <Alert variant="outlined" severity="info">
+                { documents }
+            </Alert>
             <div className={styles.Footer}>
                 <Button
                     variant="contained"

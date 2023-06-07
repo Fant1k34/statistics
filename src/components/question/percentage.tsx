@@ -5,6 +5,7 @@ import {toTimeString} from "../../api/time";
 import styles from "./index.module.css";
 import { mobileTextScaler } from "../../api/mobile-text-scaler";
 import TextField from '@mui/material/TextField';
+import {Alert} from "@mui/material";
 
 type Props = {
     question: QuestionToShow['question'];
@@ -13,9 +14,10 @@ type Props = {
     callback: (p: number[]) => void;
     secondsLeft: number;
     finishQuiz: () => void;
+    documents: string;
 };
 
-export const Percentage = ({ question, answers, correctAnswers, callback, secondsLeft, finishQuiz }: Props) => {
+export const Percentage = ({ question, answers, correctAnswers, callback, secondsLeft, finishQuiz, documents }: Props) => {
     const [answer, setAnswer] = useState<number>(0);
     const [time, setTime] = useState<number>(secondsLeft);
     const [timerId, setTimerId] = useState<number | null>(null);
@@ -55,6 +57,9 @@ export const Percentage = ({ question, answers, correctAnswers, callback, second
                 value={answer}
                 onChange={(event) => handleChoiceClick((event.target as HTMLInputElement).value)}>
             </TextField>
+            <Alert variant="outlined" severity="info">
+                { documents }
+            </Alert>
             <div className={styles.Footer}>
                 <Button variant="contained" onClick={() => handleSubmitClick()} className={styles.SubmitFormButton}>{textWrapperToQuizAnswers("Далее")}</Button>
             </div>
