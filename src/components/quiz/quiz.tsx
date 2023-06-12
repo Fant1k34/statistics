@@ -125,9 +125,11 @@ export const Quiz = () => {
         const result = statisticsData[0];
         const recommendation = statisticsData[1];
         //@ts-ignore
-        const a = recommendation.reduce((previos, current) => ({...previos, [current[0]]: current[1]}), {})
+        const a = recommendation.reduce((previos, current) => ({...previos, [current[0]]: current[1]}), {});
 
-        navigate(`/statistics/{"r":${result},"m":${allQuizInfo.grade},"q":` + JSON.stringify(allQuizInfo.criteria) + `,"a":` + JSON.stringify(a) + '}')
+        const urlParams = `?r=${result}&m=${allQuizInfo.grade}&q=${JSON.stringify(allQuizInfo.criteria)}&a=${JSON.stringify(a)}`;
+
+        navigate(`/statistics/${urlParams}`)
     }
 
     const handleResultCount = async () => {

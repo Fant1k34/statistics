@@ -30,7 +30,6 @@ export const Statistics = () => {
     const q = JSON.parse(searchParams.get('q'));
     const a = JSON.parse(searchParams.get('a'));
 
-
     const code = { r, m, q, a };
 
     const urlParams = `?r=${r}&m=${m}&q=${JSON.stringify(q)}&a=${JSON.stringify(a)}`;
@@ -147,7 +146,7 @@ export const Statistics = () => {
                     {mobileTextScaler('Скопировать ссылку на результат', styles.StatisticsButton)}
                 </Button>
                 <Button
-                    onClick={() => navigate('/')}
+                    onClick={() => navigate('/Quiz')}
                     variant="outlined"
                 >
                     {mobileTextScaler('Вернуться на главную', styles.StatisticsButton)}
