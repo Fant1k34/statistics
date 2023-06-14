@@ -20,3 +20,20 @@ export const getRecommendations = async (
 
     return await axios.post(url, result);
 }
+
+export const getCountWithoutRecommendations = async (
+    allCriteria: string[],
+    allValues: any
+) => {
+    const result = allCriteria.reduce((previousValue, currentValue, currentIndex) => (
+        { ...previousValue,
+            [currentValue]: allValues[currentIndex],
+        }), {})
+    console.log('Объединенные критерии')
+    console.log(result);
+
+    // const url = `http://localhost:5000/get-score`;
+    const url = `https://diplomadiploma.pythonanywhere.com/get-score`;
+
+    return await axios.post(url, result);
+}

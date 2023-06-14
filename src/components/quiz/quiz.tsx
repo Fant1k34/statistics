@@ -16,7 +16,7 @@ import {
 } from '../../store/quiz-slice/selectors/quiz-selectors'
 import { questionFromMiddleToQuestionToShowMapper } from '../../api/question-from-middle-to-question-to-show-mapper'
 import { setQuizStatusLoading } from '../../store/chose-quiz-slice/chose-quiz-slice'
-import { getRecommendations } from '../../api/get-recommendations'
+import { getCountWithoutRecommendations, getRecommendations } from '../../api/get-recommendations'
 import { setStatisticsData as setStatisticsDataSlice, statisticsReducer } from '../../store/statistics/slice'
 import { useNavigate } from 'react-router-dom'
 import { getAllQuizInfo } from '../../store/chose-quiz-slice/selectors/quiz-load-selectors'
@@ -100,10 +100,19 @@ export const Quiz = () => {
     }
 
     if (quizStage === 'LoadingStatistics') {
+        // TODO: Указать критерии для объединения
         getRecommendations(allQuizInfo.criteria, applicationData, allQuizInfo.grade).then((respose) => {
             dispatch(setQuizStage('Statistics'))
             dispatch(setStatisticsDataSlice(respose.data));
-        })
+            console.log(respose.data);
+        }).catch((e) => {
+            console.error('Возникла ОШИБКА');
+            console.error(e);
+            getCountWithoutRecommendations(allQuizInfo.criteria, applicationData).then((respose) => {
+                dispatch(setQuizStage('Statistics'))
+                dispatch(setStatisticsDataSlice(respose.data));
+            })
+        });
 
         dispatch(setQuizStage('LoadingQuiz'))
     }
