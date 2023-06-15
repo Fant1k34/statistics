@@ -92,7 +92,7 @@ export const Statistics = () => {
                 </Box>
             </Box>
             <div>
-                <Alert severity="info" className={styles.alert}>Ваш результат анекты — {data.r}, при этом минимальный балл для получения выбранной квалификационной категории состовляет {data.m}</Alert>
+                <Alert severity="info" className={styles.alert}>Ваш результат анекты составляет {data.r}, при этом минимальный балл для получения выбранной квалификационной категории состовляет {data.m}</Alert>
                 <TableContainer component={Paper}>
                     <Table
                         sx={{ minWidth: 500 }}
